@@ -8,8 +8,8 @@ import Modal from '../components/modal';
 const Login: NextPage = () => {
   return (
     <Modal>
-      <Container className="max-w-sm h-full mx-auto flex justify-center items-center">
-        <Card className="w-full">
+      <Container className="h-full mx-auto flex justify-center items-center">
+        <Card className="max-w-sm w-full">
           <form className="grid grid-cols-1 gap-4">
             <Input type="text" placeholder="Username" />
             <Input type="password" placeholder="Password" />
