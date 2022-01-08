@@ -2337,6 +2337,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "goober@npm:2.1.1"
+  peerDependencies:
+    csstype: ^2.6.2
+  checksum: 19a6622aea23b915bbf48c50389e9a1755b80cd3735dad1e22a1fe5c343f9d22b69269cc1dd37fc0548671c9c7de062d4ad56e5342c598cbc4467e1ce92bc133
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.2.6":
   version: 4.2.9
   resolution: "graceful-fs@npm:4.2.9"
@@ -3254,7 +3263,8 @@ __metadata:
     postcss: ^8.4.5
     react: 17.0.2
     react-dom: 17.0.2
-    swr: ^1.1.2
+    react-hot-toast: ^2.2.0
+    react-if: ^4.1.1
     tailwindcss: ^3.0.11
     typescript: 4.5.4
   languageName: unknown
@@ -4030,6 +4040,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hot-toast@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-hot-toast@npm:2.2.0"
+  dependencies:
+    goober: ^2.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: bb34ddc8ada14cbd75a37f14d2563412174e23276eb05e9fb23a031b6d8374ca190cefa1940692f4371529ddafeb2d4b8d3e5023187c2851ec8cb247461553ee
+  languageName: node
+  linkType: hard
+
+"react-if@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "react-if@npm:4.1.1"
+  peerDependencies:
+    react: ^16.x || ^17.x
+  checksum: ea7c343eca1edb4b26221c41149fcf32073d89af763916ae2b49d4340a9e5e02961c1b7977397f2f4875117ed8c94db84875de4538995bf2a68daedb5990ede0
+  languageName: node
+  linkType: hard
+
 "react-is@npm:17.0.2":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
@@ -4618,15 +4649,6 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
-  languageName: node
-  linkType: hard
-
-"swr@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "swr@npm:1.1.2"
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: 84bf222c667bf4f94bf9bcaf51f11443d69eb6feb82649c06ef8e576c51f52269872dbda4b926f267fd79cfeaf7bd84c6a62d519db25fe2af1fb811e75163e94
   languageName: node
   linkType: hard
 
