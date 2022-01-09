@@ -1,14 +1,16 @@
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { If, Then } from 'react-if';
 import client from '../libs/ApolloClient';
 import '../styles/globals.css';
 
 type Theme = 'light' | 'dark';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,11 +29,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.remove('bg-zinc-900');
     }
+
+    setIsLoaded(true);
   }, [router]);
 
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <If condition={isLoaded}>
+        <Then>
+          <Component {...pageProps} />
+        </Then>
+      </If>
       <Toaster />
     </ApolloProvider>
   );

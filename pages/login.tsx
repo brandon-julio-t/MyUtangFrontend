@@ -13,24 +13,19 @@ import Modal from '../components/modal';
 const Login: NextPage = () => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { data, loading }] = useMutation<
-    {
-      login: { token: string };
-    },
-    { userName: string; password: string }
-  >(GQL);
+  const [login, { loading }] = useMutation<{ login: { token: string } }, { userName: string; password: string }>(GQL);
   const router = useRouter();
 
   const onSubmit: FormEventHandler = async e => {
     e.preventDefault();
-    login({ variables: { userName, password } });
-  };
-  useEffect(() => {
+    const { data } = await login({ variables: { userName, password } });
     if (data?.login.token) {
+      const { token } = data.login;
+      document.cookie = `token=${token}`;
       localStorage.setItem('token', data.login.token);
       router.push('/');
     }
-  }, [data, router]);
+  };
 
   return (
     <Modal>
