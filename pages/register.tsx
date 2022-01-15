@@ -11,25 +11,31 @@ import Input from '../components/common/input';
 import Modal from '../components/common/modal';
 import AuthPayload from '../models/AuthPayload';
 
-const Login: NextPage = () => {
+const Register: NextPage = () => {
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [login, { loading }] = useMutation<{ login: AuthPayload }, { userName: string; password: string }>(GQL);
+  const [register, { loading }] = useMutation<{ register: AuthPayload }, { userName: string; password: string }>(GQL);
 
   const router = useRouter();
 
   const onSubmit: FormEventHandler = async e => {
     e.preventDefault();
 
-    const { data } = await toast.promise(login({ variables: { userName, password } }), {
-      loading: 'Login...',
-      success: 'Login success.',
-      error: 'An error occurred while doing login. Please try again.',
+    if (password !== confirmPassword) {
+      toast.error('Password does not match.');
+      return;
+    }
+
+    const { data } = await toast.promise(register({ variables: { userName, password } }), {
+      loading: 'Registering...',
+      success: 'Register success.',
+      error: 'An error occurred while register. Please try again.',
     });
 
-    if (data?.login.token) {
-      const { token } = data.login;
+    if (data?.register.token) {
+      const { token } = data.register;
       document.cookie = `token=${token}`;
       localStorage.setItem('token', token);
       router.push('/');
@@ -42,17 +48,23 @@ const Login: NextPage = () => {
         <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4">
           <Input onChange={e => setUsername(e.target.value)} type="text" placeholder="Username" required />
           <Input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" required />
+          <Input
+            onChange={e => setConfirmPassword(e.target.value)}
+            type="password"
+            placeholder="Confirm password"
+            required
+          />
           <Button isLoading={loading} type="submit">
-            Login
+            Register
           </Button>
         </form>
       </Card>
 
       <Card className="max-w-sm w-full">
         <p className="text-center">
-          No account?{' '}
+          Already has an account?{' '}
           <span className="underline">
-            <Link href="/register">Register here</Link>
+            <Link href="/login">Login</Link>
           </span>
           .
         </p>
@@ -62,11 +74,11 @@ const Login: NextPage = () => {
 };
 
 const GQL = gql`
-  mutation Login($userName: String!, $password: String!) {
-    login(userName: $userName, password: $password) {
+  mutation Register($userName: String!, $password: String!) {
+    register(userName: $userName, password: $password) {
       token
     }
   }
 `;
 
-export default Login;
+export default Register;

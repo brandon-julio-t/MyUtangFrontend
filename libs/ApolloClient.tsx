@@ -1,16 +1,21 @@
-import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+import { OperationDefinitionNode, OperationTypeNode } from 'graphql';
 import toast from 'react-hot-toast';
 
 const httpLink = new HttpLink({
   uri: 'https://my-utang-backend.herokuapp.com/',
 });
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  const isQuery = operation.query.definitions.some(
+    d => (d as OperationDefinitionNode).operation === OperationTypeNode.QUERY
+  );
+
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) => {
-      toast.error(message);
+      if (isQuery) toast.error(message);
       return console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
     });
 
@@ -22,6 +27,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('token');
+  if (!token) document.cookie = '';
   return {
     headers: {
       ...headers,
