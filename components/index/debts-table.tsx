@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react';
 import { Else, If, Then } from 'react-if';
 import Debt from '../../models/Debt';
+import Skeleton from '../common/skeleton';
 import Table from '../common/table';
 
-const DebtsTable: FunctionComponent<{ debts: Debt[]; loading: boolean; emptyMessage: string; }> = props => {
+const DebtsTable: FunctionComponent<{ debts: Debt[]; loading: boolean; emptyMessage: string }> = props => {
   return (
     <Table>
       <Table.HeadSection>
@@ -35,8 +36,17 @@ const DebtsTable: FunctionComponent<{ debts: Debt[]; loading: boolean; emptyMess
             <If condition={props.loading}>
               <Then>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell colSpan={4} className="text-center py-4">
-                    Loading...
+                  <Table.Cell className="text-center py-4">
+                    <Skeleton type="box" />
+                  </Table.Cell>
+                  <Table.Cell className="text-center py-4">
+                    <Skeleton type="box" />
+                  </Table.Cell>
+                  <Table.Cell className="text-center py-4">
+                    <Skeleton type="box" />
+                  </Table.Cell>
+                  <Table.Cell className="text-center py-4">
+                    <Skeleton type="box" />
                   </Table.Cell>
                 </tr>
               </Then>

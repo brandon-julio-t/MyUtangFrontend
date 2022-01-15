@@ -6,6 +6,7 @@ import { Else, If, Then } from 'react-if';
 import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
+import Skeleton from '../components/common/skeleton';
 import LendMoneyModal from '../components/index/lend-money-modal';
 import MyDebts from '../components/index/my-debts';
 import MyUnpaidLendedDebts from '../components/index/my-unpaid-lended-debts';
@@ -21,7 +22,9 @@ const Home: NextPage = () => {
         <h1 className="flex items-center text-2xl mb-4">
           <span className="mr-2">Hello</span>
           <If condition={loading}>
-            <Then>...</Then>
+            <Then>
+              <Skeleton type="box" className="max-w-xs" />
+            </Then>
             <Else>
               <span className="font-bold">{data?.user.userName}</span>
             </Else>
