@@ -37,8 +37,14 @@ const Home: NextPage = () => {
           </Button>
         </div>
       </Card>
-      <MyDebts />
-      <MyUnpaidLendedDebts />
+
+      <div>
+        <MyDebts />
+      </div>
+      <div>
+        <MyUnpaidLendedDebts />
+      </div>
+
       <LendMoneyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Container>
   );
