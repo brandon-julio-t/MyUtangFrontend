@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <If condition={isLoaded}>
         <Then>
           <Component {...pageProps} />
-          <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="absolute right-4 bottom-4">
+          <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="fixed right-4 bottom-4">
             <If condition={theme === 'light'}>
               <Then>
                 <SunIcon className="h-5 w-5" /> <span className="ml-2">Light</span>
