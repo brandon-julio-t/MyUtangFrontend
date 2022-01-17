@@ -9,14 +9,14 @@ interface Props {
 }
 
 const Button: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement> & Props> = props => {
-  const { children, className, href, isLoading, styleType, ...rest } = props;
+  const { children, className, href, isLoading, styleType, onClick, ...rest } = props;
 
   let classNamesCollection = [
     'flex',
     'justify-center',
     'items-center',
     'transition',
-    'bg-locations',
+    'cursor-pointer',
     'outline-0',
     'border',
     'rounded',
@@ -76,6 +76,10 @@ const Button: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement> & Props>
           {...rest}
           className={`${classNames} ${className} ${isLoading ? 'animate-pulse' : ''}`}
           disabled={isLoading}
+          onClick={e => {
+            e.stopPropagation();
+            if (onClick) onClick(e);
+          }}
         >
           {children}
         </button>

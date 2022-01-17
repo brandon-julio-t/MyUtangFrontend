@@ -40,6 +40,7 @@ const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = props 
 const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }> = props => {
   return (
     <tr
+      {...props}
       className={`${
         props.idx % 2 ? 'bg-white dark:bg-zinc-600' : 'bg-slate-50 dark:bg-zinc-500'
       } transition hover:bg-slate-100 dark:hover:bg-zinc-400 ${props.className}`}

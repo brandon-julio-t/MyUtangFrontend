@@ -2,16 +2,18 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { FormEventHandler, FunctionComponent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Debt from '../../models/Debt';
 import User from '../../models/User';
-import { addLending } from '../../stores';
+import { AppDispatch, AppRootState } from '../../stores/app';
+import { addLending } from '../../stores/index-slice';
 import Button from '../common/button';
 import Input from '../common/input';
 import Modal, { ModalProps } from '../common/modal';
 
 const LendMoneyModal: FunctionComponent<ModalProps> = ({ isOpen, onClose }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector<AppRootState, User | null>(state => state.app.user);
 
   const { data, loading } = useQuery<{ users: User[] }>(USERS_GQL);
   const [createDebt, {}] = useMutation<
@@ -29,6 +31,8 @@ const LendMoneyModal: FunctionComponent<ModalProps> = ({ isOpen, onClose }) => {
       setdebtorId(data?.users[0].id);
     }
   }, [data?.users]);
+
+  const selectUsersOtherThanCurrentUser = (users: User[]) => users.filter(u => u.id !== user?.id);
 
   const onSubmit: FormEventHandler = async e => {
     e.preventDefault();
@@ -53,7 +57,7 @@ const LendMoneyModal: FunctionComponent<ModalProps> = ({ isOpen, onClose }) => {
               <option>Loading...</option>
             </Then>
             <Else>
-              {data?.users.map(user => (
+              {selectUsersOtherThanCurrentUser(data?.users ?? []).map(user => (
                 <option key={user.id} value={user.id}>
                   {user.userName}
                 </option>

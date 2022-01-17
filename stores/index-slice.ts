@@ -1,7 +1,7 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import Debt from '../models/Debt';
 
-export const indexSlice = createSlice({
+const { reducer, actions } = createSlice({
   name: 'index',
 
   initialState: {
@@ -25,11 +25,5 @@ export const indexSlice = createSlice({
   },
 });
 
-export const indexStore = configureStore({
-  reducer: indexSlice.reducer,
-});
-
-export const { loadDebts, removeDebt, loadLendings, addLending } = indexSlice.actions;
-
-export type IndexRootState = ReturnType<typeof indexStore.getState>;
-export type IndexDispatch = typeof indexStore.dispatch;
+export const indexReducer = reducer;
+export const { loadDebts, removeDebt, loadLendings, addLending } = actions;

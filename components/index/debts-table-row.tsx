@@ -1,10 +1,10 @@
 import { CashIcon } from '@heroicons/react/solid';
 import { gql, useMutation } from '@apollo/client';
-import { FunctionComponent, useState } from 'react';
+import { EventHandler, FunctionComponent, MouseEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
-import { removeDebt } from '../../stores';
+import { removeDebt } from '../../stores/index-slice';
 import Button from '../common/button';
 import Table from '../common/table';
 import Modal from '../common/modal';
@@ -33,10 +33,7 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt }> = ({ idx, de
       <Table.Row
         key={idx}
         idx={idx}
-        onClick={() => {
-          setShow(true);
-          console.log('duar');
-        }}
+        onClick={() => setShow(true)}
         className="cursor-pointer"
       >
         <Table.Cell className="text-center">{idx + 1}</Table.Cell>
@@ -50,7 +47,7 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt }> = ({ idx, de
       </Table.Row>
 
       <Modal isOpen={show} title={debt.title} onClose={() => setShow(false)}>
-        <p>{debt.description}</p>
+        <p className="whitespace-pre-wrap break-words">{debt.description}</p>
       </Modal>
     </>
   );

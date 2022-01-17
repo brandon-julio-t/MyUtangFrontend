@@ -5,8 +5,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Else, If, Then } from 'react-if';
+import { Provider } from 'react-redux';
 import Button from '../components/common/button';
 import client from '../libs/ApolloClient';
+import { appStore } from '../stores/app';
 import '../styles/globals.css';
 
 type Theme = 'light' | 'dark';
@@ -31,24 +33,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [theme]);
 
   return (
-    <ApolloProvider client={client}>
-      <If condition={isLoaded}>
-        <Then>
-          <Component {...pageProps} />
-          <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="fixed right-4 bottom-4">
-            <If condition={theme === 'light'}>
-              <Then>
-                <SunIcon className="h-5 w-5" /> <span className="ml-2">Light</span>
-              </Then>
-              <Else>
-                <MoonIcon className="h-5 w-5" /> <span className="ml-2">Dark</span>
-              </Else>
-            </If>
-          </Button>
-        </Then>
-      </If>
-      <Toaster />
-    </ApolloProvider>
+    <Provider store={appStore}>
+      <ApolloProvider client={client}>
+        <If condition={isLoaded}>
+          <Then>
+            <Component {...pageProps} />
+            <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="fixed right-4 bottom-4">
+              <If condition={theme === 'light'}>
+                <Then>
+                  <SunIcon className="h-5 w-5" /> <span className="ml-2">Light</span>
+                </Then>
+                <Else>
+                  <MoonIcon className="h-5 w-5" /> <span className="ml-2">Dark</span>
+                </Else>
+              </If>
+            </Button>
+          </Then>
+        </If>
+        <Toaster />
+      </ApolloProvider>
+    </Provider>
   );
 }
 

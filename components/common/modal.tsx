@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { XIcon } from '@heroicons/react/outline';
 import { Fragment, FunctionComponent } from 'react';
 import Card from './card';
 
@@ -40,8 +41,9 @@ const Modal: FunctionComponent<ModalProps & { title: string }> = ({ children, ti
           >
             <div className="inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl hover:shadow-2xl rounded-2xl">
               <Card>
-                <Dialog.Title as="h3" className="mb-4 text-xl font-medium">
+                <Dialog.Title as="h3" className="mb-4 text-xl font-medium flex items-center justify-between">
                   {title}
+                  <XIcon className="h-6 w-6 cursor-pointer" onClick={onClose} />
                 </Dialog.Title>
                 {children}
               </Card>
