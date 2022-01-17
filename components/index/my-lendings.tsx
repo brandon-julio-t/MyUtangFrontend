@@ -16,7 +16,7 @@ const MyLendings: FunctionComponent = () => {
     dispatch(loadLendings(data?.unpaidLendedDebts ?? []));
   }, [data?.unpaidLendedDebts, dispatch]);
 
-  return <DebtsCard debts={lendings} emptyMessage="No unpaid lended debts" loading={loading} title="My Lendings" />;
+  return <DebtsCard debts={lendings} loading={loading} isLending={true} />;
 };
 
 const GQL = gql`
@@ -26,6 +26,9 @@ const GQL = gql`
       title
       description
       amount
+      debtor {
+        userName
+      }
     }
   }
 `;

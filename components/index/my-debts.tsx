@@ -14,11 +14,9 @@ const MyDebts: FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(loadDebts(data?.unpaidDebts ?? []));
-  },[data?.unpaidDebts, dispatch]);
+  }, [data?.unpaidDebts, dispatch]);
 
-  return (
-    <DebtsCard debts={debts} emptyMessage="No unpaid debts." loading={loading} title="My Debts" />
-  );
+  return <DebtsCard debts={debts} loading={loading} isLending={false} />;
 };
 
 const GQL = gql`
@@ -28,6 +26,9 @@ const GQL = gql`
       title
       description
       amount
+      lender {
+        userName
+      }
     }
   }
 `;

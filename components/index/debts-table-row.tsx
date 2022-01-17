@@ -1,15 +1,20 @@
-import { CashIcon } from '@heroicons/react/solid';
 import { gql, useMutation } from '@apollo/client';
-import { EventHandler, FunctionComponent, MouseEvent, useState } from 'react';
+import { CashIcon } from '@heroicons/react/solid';
+import { FunctionComponent, useState } from 'react';
 import toast from 'react-hot-toast';
+import { If, Then } from 'react-if';
 import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import { removeDebt } from '../../stores/index-slice';
 import Button from '../common/button';
-import Table from '../common/table';
 import Modal from '../common/modal';
+import Table from '../common/table';
 
-const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt }> = ({ idx, debt }) => {
+const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boolean }> = ({
+  idx,
+  debt,
+  isLending,
+}) => {
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -30,20 +35,20 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt }> = ({ idx, de
 
   return (
     <>
-      <Table.Row
-        key={idx}
-        idx={idx}
-        onClick={() => setShow(true)}
-        className="cursor-pointer"
-      >
+      <Table.Row key={idx} idx={idx} onClick={() => setShow(true)} className="cursor-pointer">
         <Table.Cell className="text-center">{idx + 1}</Table.Cell>
         <Table.Cell className="whitespace-nowrap">{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
-        <Table.Cell>
-          <Button onClick={onPay} isLoading={loading}>
-            <CashIcon className="h-5 w-5" /> <span className="ml-2">Pay</span>
-          </Button>
-        </Table.Cell>
+        <Table.Cell>{(isLending ? debt.debtor?.userName : debt.lender?.userName) ?? '-'}</Table.Cell>
+        <If condition={!isLending}>
+          <Then>
+            <Table.Cell>
+              <Button onClick={onPay} isLoading={loading}>
+                <CashIcon className="h-5 w-5" /> <span className="ml-2">Pay</span>
+              </Button>
+            </Table.Cell>
+          </Then>
+        </If>
       </Table.Row>
 
       <Modal isOpen={show} title={debt.title} onClose={() => setShow(false)}>

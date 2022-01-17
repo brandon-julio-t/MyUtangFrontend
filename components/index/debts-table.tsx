@@ -5,7 +5,11 @@ import Skeleton from '../common/skeleton';
 import Table from '../common/table';
 import DebtsTableRow from './debts-table-row';
 
-const DebtsTable: FunctionComponent<{ debts: Debt[]; loading: boolean; emptyMessage: string }> = props => {
+const DebtsTable: FunctionComponent<{
+  debts: Debt[];
+  loading: boolean;
+  isLending: boolean;
+}> = ({ debts, loading, isLending }) => {
   return (
     <Table>
       <Table.HeadSection>
@@ -13,38 +17,36 @@ const DebtsTable: FunctionComponent<{ debts: Debt[]; loading: boolean; emptyMess
           <Table.Head>No.</Table.Head>
           <Table.Head>Title</Table.Head>
           <Table.Head>Amount</Table.Head>
-          <Table.Head></Table.Head>
+          <Table.Head>{isLending ? 'Debtor' : 'Lender'}</Table.Head>
+          <If condition={!isLending}>
+            <Then>
+              <Table.Head></Table.Head>
+            </Then>
+          </If>
         </tr>
       </Table.HeadSection>
       <Table.BodySection>
-        <If condition={props.debts.length}>
+        <If condition={debts.length}>
           <Then>
-            {props.debts.map((debt, idx) => (
-              <DebtsTableRow key={debt.id} idx={idx} debt={debt} />
+            {debts.map((debt, idx) => (
+              <DebtsTableRow key={debt.id} idx={idx} debt={debt} isLending={isLending} />
             ))}
           </Then>
           <Else>
-            <If condition={props.loading}>
+            <If condition={loading}>
               <Then>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell>
-                    <Skeleton type="box" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton type="box" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton type="box" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Skeleton type="box" />
-                  </Table.Cell>
+                  {Array.from({ length: isLending ? 4 : 5 }).map((_, idx) => (
+                    <Table.Cell key={idx}>
+                      <Skeleton type="box" />
+                    </Table.Cell>
+                  ))}
                 </tr>
               </Then>
               <Else>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell colSpan={4} className="text-center">
-                    {props.emptyMessage}
+                  <Table.Cell colSpan={isLending ? 4 : 5} className="text-center">
+                    {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
                 </tr>
               </Else>

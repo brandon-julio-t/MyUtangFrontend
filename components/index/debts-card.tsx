@@ -8,10 +8,9 @@ import DebtsTable from './debts-table';
 
 const DebtsCard: FunctionComponent<{
   debts: Debt[];
-  title: string;
   loading: boolean;
-  emptyMessage: string;
-}> = ({ debts, title, loading, emptyMessage }) => {
+  isLending: boolean;
+}> = ({ debts, loading, isLending }) => {
   return (
     <Card>
       <Disclosure defaultOpen={true}>
@@ -28,7 +27,7 @@ const DebtsCard: FunctionComponent<{
                   </Else>
                 </If>
 
-                <span className="ml-2">{title}</span>
+                <span className="ml-2">{isLending ? 'My Lendings' : 'My Debts'}</span>
               </h2>
             </Disclosure.Button>
 
@@ -41,7 +40,7 @@ const DebtsCard: FunctionComponent<{
               leaveTo="transform -translate-y-4 opacity-0"
             >
               <Disclosure.Panel className="mt-4">
-                <DebtsTable debts={debts} loading={loading} emptyMessage={emptyMessage} />
+                <DebtsTable debts={debts} loading={loading} isLending={isLending} />
               </Disclosure.Panel>
             </Transition>
           </>

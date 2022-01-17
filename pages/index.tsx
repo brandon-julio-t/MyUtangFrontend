@@ -29,8 +29,8 @@ const Home: NextPage = () => {
   }, [data?.user, dispatch, loading, router]);
 
   return (
-    <Container className="mx-auto my-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <Card className="lg:col-span-2">
+    <Container className="mx-auto my-8 grid grid-cols-1 gap-4">
+      <Card>
         <h1 className="flex items-center text-2xl mb-4">
           <span className="mr-2">Hello</span>
           <If condition={loading}>
@@ -50,12 +50,8 @@ const Home: NextPage = () => {
         </div>
       </Card>
 
-      <div>
-        <MyDebts />
-      </div>
-      <div>
-        <MyLendings />
-      </div>
+      <MyDebts />
+      <MyLendings />
 
       <LendMoneyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Container>
