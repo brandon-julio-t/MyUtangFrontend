@@ -8,7 +8,6 @@ import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
 import Input from '../components/common/input';
-import Modal from '../components/common/modal';
 import AuthPayload from '../models/AuthPayload';
 
 const Login: NextPage = () => {
@@ -25,7 +24,7 @@ const Login: NextPage = () => {
     const { data } = await toast.promise(login({ variables: { userName, password } }), {
       loading: 'Login...',
       success: 'Login success.',
-      error: 'An error occurred while doing login. Please try again.',
+      error: 'Login failed. Please try again.',
     });
 
     if (data?.login.token) {

@@ -8,7 +8,6 @@ import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
 import Input from '../components/common/input';
-import Modal from '../components/common/modal';
 import AuthPayload from '../models/AuthPayload';
 
 const Register: NextPage = () => {
@@ -31,7 +30,7 @@ const Register: NextPage = () => {
     const { data } = await toast.promise(register({ variables: { userName, password } }), {
       loading: 'Registering...',
       success: 'Register success.',
-      error: 'An error occurred while register. Please try again.',
+      error: 'Register failed. Please try again.',
     });
 
     if (data?.register.token) {

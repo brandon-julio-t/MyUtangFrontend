@@ -16,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) => {
       if (isQuery) toast.error(message);
-      return console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+      console.error(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
     });
 
   if (networkError) {
