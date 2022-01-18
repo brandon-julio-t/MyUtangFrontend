@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           <span className="mr-2">Hello</span>
           <If condition={loading}>
             <Then>
-              <Skeleton type="box" className="max-w-xs" />
+              <Skeleton className="max-w-xs" />
             </Then>
             <Else>
               <span className="font-bold">{data?.user.userName}</span>

@@ -6,62 +6,67 @@ const Table: FunctionComponent<HTMLAttributes<HTMLTableElement>> & {
   Row: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }>;
   Head: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>>;
   Cell: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>>;
-} = props => {
+} = ({ className, children, ...rest }) => {
   return (
-    <div className={`overflow-x-auto ${props.className}`}>
+    <div className={`overflow-x-auto ${className}`}>
       <div className="transition border border-slate-300 dark:border-zinc-700 rounded-2xl overflow-hidden shadow hover:shadow-md min-w-full inline-block overflow-x-auto">
-        <table {...props} className="min-w-full">
-          {props.children}
+        <table {...rest} className="min-w-full">
+          {children}
         </table>
       </div>
     </div>
   );
 };
 
-const THead: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = props => {
+const THead: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({ className, children, ...rest }) => {
   return (
     <thead
-      {...props}
-      className={`bg-slate-200 dark:bg-zinc-800 border-b border-zinc-300 dark:border-zinc-700 ${props.className}`}
+      {...rest}
+      className={`bg-slate-200 dark:bg-zinc-800 border-b border-zinc-300 dark:border-zinc-700 ${className}`}
     >
-      {props.children}
+      {children}
     </thead>
   );
 };
 
-const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = props => {
+const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({ className, children, ...rest }) => {
   return (
-    <tbody {...props} className={`divide-y dark:divide-zinc-700 ${props.className}`}>
-      {props.children}
+    <tbody {...rest} className={`divide-y dark:divide-zinc-700 ${className}`}>
+      {children}
     </tbody>
   );
 };
 
-const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }> = props => {
+const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }> = ({
+  className,
+  children,
+  idx,
+  ...rest
+}) => {
   return (
     <tr
-      {...props}
+      {...rest}
       className={`${
-        props.idx % 2 ? 'bg-white dark:bg-zinc-600' : 'bg-slate-50 dark:bg-zinc-500'
-      } transition hover:bg-slate-100 dark:hover:bg-zinc-400 ${props.className}`}
+        idx % 2 ? 'bg-white dark:bg-zinc-600' : 'bg-slate-50 dark:bg-zinc-500'
+      } transition hover:bg-slate-100 dark:hover:bg-zinc-400 ${className}`}
     >
-      {props.children}
+      {children}
     </tr>
   );
 };
 
-const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = props => {
+const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...rest }) => {
   return (
-    <th {...props} className={`p-6 text-left ${props.className}`}>
-      {props.children}
+    <th {...rest} className={`p-6 text-left ${className}`}>
+      {children}
     </th>
   );
 };
 
-const TD: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>> = props => {
+const TD: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...rest }) => {
   return (
-    <td {...props} className={`px-6 py-4 ${props.className}`}>
-      {props.children}
+    <td {...rest} className={`px-6 py-4 ${className}`}>
+      {children}
     </td>
   );
 };

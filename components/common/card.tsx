@@ -1,6 +1,6 @@
 import { FunctionComponent, HTMLAttributes } from 'react';
 
-const Card: FunctionComponent<HTMLAttributes<HTMLDivElement>> = props => {
+const Card: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({ className, children, ...rest }) => {
   const classNames = [
     'transition',
     'border',
@@ -14,8 +14,8 @@ const Card: FunctionComponent<HTMLAttributes<HTMLDivElement>> = props => {
   ].join(' ');
 
   return (
-    <div {...props} className={`${classNames} ${props.className}`}>
-      {props.children}
+    <div {...rest} className={`${classNames} ${className}`}>
+      {children}
     </div>
   );
 };
