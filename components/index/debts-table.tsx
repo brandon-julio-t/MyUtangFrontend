@@ -33,7 +33,7 @@ const DebtsTable: FunctionComponent<{
             ))}
           </Then>
           <Else>
-            <If condition={loading}>
+            <If condition={loading || true}>
               <Then>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
                   {Array.from({ length: 4 }).map((_, idx) => (
