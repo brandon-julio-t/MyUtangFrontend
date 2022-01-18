@@ -1,9 +1,9 @@
 import { FunctionComponent, HTMLAttributes } from 'react';
 
-const Container: FunctionComponent<HTMLAttributes<HTMLDivElement>> = props => {
+const Container: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({className, children, ...rest}) => {
   return (
-    <div {...props} className={`max-w-7xl px-2 md:px-4 ${props.className}`}>
-      {props.children}
+    <div {...rest} className={`max-w-7xl px-2 md:px-4 ${className}`}>
+      {children}
     </div>
   );
 };

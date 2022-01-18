@@ -33,19 +33,19 @@ const DebtsTable: FunctionComponent<{
             ))}
           </Then>
           <Else>
-            <If condition={loading}>
+            <If condition={loading || true}>
               <Then>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  {Array.from({ length: isLending ? 4 : 5 }).map((_, idx) => (
-                    <Table.Cell key={idx}>
-                      <Skeleton type="box" />
+                  {Array.from({ length: 4 }).map((_, idx) => (
+                    <Table.Cell key={idx} colSpan={!isLending && idx === 3 ? 2 : 1}>
+                      <Skeleton />
                     </Table.Cell>
                   ))}
                 </tr>
               </Then>
               <Else>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell colSpan={isLending ? 4 : 5} className="text-center">
+                  <Table.Cell colSpan={4} className="text-center">
                     {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
                 </tr>
