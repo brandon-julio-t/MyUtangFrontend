@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { FunctionComponent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Debt from '../../models/Debt';
+import User from '../../models/User';
 import { AppRootState } from '../../stores/app';
 import { loadDebts } from '../../stores/index-slice';
 import DebtsCard from './debts-card';
@@ -16,7 +17,23 @@ const MyDebts: FunctionComponent = () => {
     dispatch(loadDebts(data?.unpaidDebts ?? []));
   }, [data?.unpaidDebts, dispatch]);
 
-  return <DebtsCard debts={debts} loading={loading} isLending={false} />;
+  return (
+    <DebtsCard
+      debts={[
+        ...debts,
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+        new Debt('', 'test', 'test', null, new User('', null, 'iu', ''), 69, false),
+      ]}
+      loading={loading}
+      isLending={false}
+    />
+  );
 };
 
 const GQL = gql`

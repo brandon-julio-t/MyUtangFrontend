@@ -45,7 +45,7 @@ const DebtsTable: FunctionComponent<{
               </Then>
               <Else>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell colSpan={4} className="text-center">
+                  <Table.Cell colSpan={isLending ? 4 : 5} className="text-center">
                     {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
                 </tr>
