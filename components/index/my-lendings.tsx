@@ -20,13 +20,14 @@ const MyLendings: FunctionComponent = () => {
 };
 
 const GQL = gql`
-  query GetUnpaidLendedDebts {
+  query GetLendings {
     unpaidLendedDebts {
       id
       title
       description
       amount
       debtor {
+        id
         userName
       }
     }

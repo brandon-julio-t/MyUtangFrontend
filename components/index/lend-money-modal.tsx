@@ -62,6 +62,10 @@ const GQL = gql`
       title
       description
       amount
+      debtor {
+        id
+        userName
+      }
     }
   }
 `;

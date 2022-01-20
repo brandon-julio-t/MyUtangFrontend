@@ -87,10 +87,6 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
 const GQL = gql`
   mutation PayDebt($debtId: ID!) {
     payDebt(debtId: $debtId) {
-      isPaid
-      amount
-      description
-      title
       id
     }
   }
