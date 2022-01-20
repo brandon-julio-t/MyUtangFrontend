@@ -44,8 +44,8 @@ const Home: NextPage = () => {
         </h1>
         <div className="flex space-x-2">
           <Button onClick={() => setIsOpen(true)}>
-            <CreditCardIcon className="h-5 w-5" />
-            <span className="ml-2">Lend Money</span>
+            <CreditCardIcon className="h-5 w-5 mr-2" />
+            Lend Money
           </Button>
         </div>
       </Card>

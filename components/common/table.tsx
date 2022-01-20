@@ -57,7 +57,7 @@ const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: numbe
 
 const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...rest }) => {
   return (
-    <th {...rest} className={`p-6 text-left ${className}`}>
+    <th {...rest} className={`p-6 text-left font-medium ${className}`}>
       {children}
     </th>
   );
