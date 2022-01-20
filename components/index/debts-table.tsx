@@ -14,7 +14,6 @@ const DebtsTable: FunctionComponent<{
     <Table>
       <Table.HeadSection>
         <tr>
-          <Table.Head>No.</Table.Head>
           <Table.Head>Title</Table.Head>
           <Table.Head>Amount</Table.Head>
           <Table.Head>{isLending ? 'Debtor' : 'Lender'}</Table.Head>
@@ -36,7 +35,7 @@ const DebtsTable: FunctionComponent<{
             <If condition={loading}>
               <Then>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  {Array.from({ length: 4 }).map((_, idx) => (
+                  {Array.from({ length: 3 }).map((_, idx) => (
                     <Table.Cell key={idx} colSpan={!isLending && idx === 3 ? 2 : 1}>
                       <Skeleton />
                     </Table.Cell>
@@ -45,7 +44,7 @@ const DebtsTable: FunctionComponent<{
               </Then>
               <Else>
                 <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
-                  <Table.Cell colSpan={isLending ? 4 : 5} className="text-center">
+                  <Table.Cell colSpan={3 + (isLending ? 0 : 1)} className="text-center">
                     {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
                 </tr>

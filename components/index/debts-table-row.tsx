@@ -40,8 +40,7 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
 
   return (
     <>
-      <Table.Row key={idx} idx={idx} onClick={() => setShow(true)} className="cursor-pointer">
-        <Table.Cell className="text-center">{idx + 1}</Table.Cell>
+      <Table.Row idx={idx} onClick={() => setShow(true)} className="cursor-pointer">
         <Table.Cell className="whitespace-nowrap">{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
         <Table.Cell>{(isLending ? debt.debtor?.userName : debt.lender?.userName) ?? '-'}</Table.Cell>
