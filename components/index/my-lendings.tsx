@@ -27,6 +27,7 @@ const GQL = gql`
       description
       amount
       debtor {
+        id
         userName
       }
     }

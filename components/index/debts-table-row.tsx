@@ -1,9 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
-import { CashIcon } from '@heroicons/react/solid';
+import { CashIcon, PencilIcon } from '@heroicons/react/solid';
 import { FunctionComponent, useState } from 'react';
 import toast from 'react-hot-toast';
-import { If, Then } from 'react-if';
+import { Else, If, Then } from 'react-if';
 import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import { removeDebt } from '../../stores/index-slice';
@@ -11,6 +11,7 @@ import Button from '../common/button';
 import Card from '../common/card';
 import Modal from '../common/modal';
 import Table from '../common/table';
+import LendMoneyModal from './lend-money-modal';
 
 const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boolean }> = ({
   idx,
@@ -20,6 +21,7 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
   const dispatch = useDispatch();
 
   const [showDetailModal, setShow] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
 
   const [payDebt, { loading }] = useMutation<{ payDebt: Debt }, { debtId: string }>(GQL);
@@ -40,16 +42,21 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
 
   return (
     <>
-      <Table.Row key={idx} idx={idx} onClick={() => setShow(true)} className="cursor-pointer">
-        <Table.Cell className="text-center">{idx + 1}</Table.Cell>
+      <Table.Row idx={idx} onClick={() => setShow(true)} className="cursor-pointer">
         <Table.Cell className="whitespace-nowrap">{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
         <Table.Cell>{(isLending ? debt.debtor?.userName : debt.lender?.userName) ?? '-'}</Table.Cell>
-        <If condition={!isLending}>
-          <Then>
-            <Table.Cell className="relative">
+        <Table.Cell className="relative">
+          <If condition={isLending}>
+            <Then>
+              <Button onClick={() => setShowUpdateModal(true)}>
+                <PencilIcon className="h-5 w-5 mr-2" />
+                Edit
+              </Button>
+            </Then>
+            <Else>
               <Button onClick={() => setShowConfirmationDialog(true)} isLoading={loading}>
-                <CashIcon className="h-5 w-5" /> <span className="ml-2">Pay</span>
+                <CashIcon className="h-5 w-5 mr-2" /> Pay
               </Button>
 
               <Transition
@@ -73,14 +80,16 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
                   </div>
                 </Card>
               </Transition>
-            </Table.Cell>
-          </Then>
-        </If>
+            </Else>
+          </If>
+        </Table.Cell>
       </Table.Row>
 
       <Modal isOpen={showDetailModal} title={debt.title} onClose={() => setShow(false)}>
         <p className="whitespace-pre-wrap break-words">{debt.description}</p>
       </Modal>
+
+      <LendMoneyModal isOpen={showUpdateModal} debt={debt} onClose={() => setShowUpdateModal(false)} />
     </>
   );
 };
@@ -88,10 +97,6 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
 const GQL = gql`
   mutation PayDebt($debtId: ID!) {
     payDebt(debtId: $debtId) {
-      isPaid
-      amount
-      description
-      title
       id
     }
   }
