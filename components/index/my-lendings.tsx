@@ -10,18 +10,18 @@ const MyLendings: FunctionComponent = () => {
   const lendings = useSelector<AppRootState, Debt[]>(state => state.index.lendings);
   const dispatch = useDispatch();
 
-  const { data, loading } = useQuery<{ unpaidLendedDebts: Debt[] }>(GQL);
+  const { data, loading } = useQuery<{ unpaidLendings: Debt[] }>(GQL);
 
   useEffect(() => {
-    dispatch(loadLendings(data?.unpaidLendedDebts ?? []));
-  }, [data?.unpaidLendedDebts, dispatch]);
+    dispatch(loadLendings(data?.unpaidLendings ?? []));
+  }, [data?.unpaidLendings, dispatch]);
 
   return <DebtsCard debts={lendings} loading={loading} isLending={true} />;
 };
 
 const GQL = gql`
-  query GetUnpaidLendedDebts {
-    unpaidLendedDebts {
+  query GetUnpaidLendings {
+    unpaidLendings {
       id
       title
       description
