@@ -47,8 +47,8 @@ const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: numbe
     <tr
       {...rest}
       className={`${
-        idx % 2 ? 'bg-white dark:bg-zinc-600' : 'bg-slate-50 dark:bg-zinc-500'
-      } transition hover:bg-slate-100 dark:hover:bg-zinc-400 ${className}`}
+        idx % 2 ? 'bg-slate-50 dark:bg-zinc-600/50' : 'bg-white dark:bg-zinc-600/75'
+      } transition hover:bg-slate-100 dark:hover:bg-zinc-600 ${className}`}
     >
       {children}
     </tr>

@@ -8,8 +8,9 @@ import DebtsTableRow from './debts-table-row';
 const DebtsTable: FunctionComponent<{
   debts: Debt[];
   loading: boolean;
+  isViewOnly?: boolean;
   isLending: boolean;
-}> = ({ debts, loading, isLending }) => {
+}> = ({ debts, loading, isViewOnly, isLending }) => {
   return (
     <Table>
       <Table.HeadSection>
@@ -17,33 +18,37 @@ const DebtsTable: FunctionComponent<{
           <Table.Head>Title</Table.Head>
           <Table.Head>Amount</Table.Head>
           <Table.Head>{isLending ? 'Debtor' : 'Lender'}</Table.Head>
-          <Table.Head></Table.Head>
+          <If condition={!isViewOnly}>
+            <Then>
+              <Table.Head></Table.Head>
+            </Then>
+          </If>
         </tr>
       </Table.HeadSection>
       <Table.BodySection>
         <If condition={debts.length}>
           <Then>
             {debts.map((debt, idx) => (
-              <DebtsTableRow key={debt.id} idx={idx} debt={debt} isLending={isLending} />
+              <DebtsTableRow key={debt.id} idx={idx} debt={debt} isViewOnly={isViewOnly} isLending={isLending} />
             ))}
           </Then>
           <Else>
             <If condition={loading}>
               <Then>
-                <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
+                <Table.Row idx={0}>
                   {Array.from({ length: 4 }).map((_, idx) => (
                     <Table.Cell key={idx}>
                       <Skeleton />
                     </Table.Cell>
                   ))}
-                </tr>
+                </Table.Row>
               </Then>
               <Else>
-                <tr className="transition bg-white dark:bg-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-500">
+                <Table.Row idx={0}>
                   <Table.Cell colSpan={4} className="text-center">
                     {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
-                </tr>
+                </Table.Row>
               </Else>
             </If>
           </Else>

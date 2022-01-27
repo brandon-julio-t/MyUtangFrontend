@@ -13,9 +13,10 @@ import Modal from '../common/modal';
 import Table from '../common/table';
 import LendMoneyModal from './lend-money-modal';
 
-const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boolean }> = ({
+const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isViewOnly?: boolean; isLending: boolean }> = ({
   idx,
   debt,
+  isViewOnly,
   isLending,
 }) => {
   const dispatch = useDispatch();
@@ -46,43 +47,48 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
         <Table.Cell className="whitespace-nowrap">{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
         <Table.Cell>{(isLending ? debt.debtor?.userName : debt.lender?.userName) ?? '-'}</Table.Cell>
-        <Table.Cell className="relative">
-          <If condition={isLending}>
-            <Then>
-              <Button onClick={() => setShowUpdateModal(true)}>
-                <PencilIcon className="h-5 w-5 mr-2" />
-                Edit
-              </Button>
-            </Then>
-            <Else>
-              <Button onClick={() => setShowConfirmationDialog(true)} isLoading={loading}>
-                <CashIcon className="h-5 w-5 mr-2" /> Pay
-              </Button>
+        <If condition={!isViewOnly}>
+          <Then>
+            <Table.Cell className="relative">
+              <If condition={isLending}>
+                <Then>
+                  <Button onClick={() => setShowUpdateModal(true)}>
+                    <PencilIcon className="h-5 w-5 mr-2" />
+                    Edit
+                  </Button>
+                </Then>
+                <Else>
+                  <Button onClick={() => setShowConfirmationDialog(true)} isLoading={loading}>
+                    <CashIcon className="h-5 w-5 mr-2" /> Pay
+                  </Button>
 
-              <Transition
-                show={showConfirmationDialog}
-                enter="transition"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Card className="absolute -bottom-8 right-0 md:right-8 origin-center z-10">
-                  <p className="mb-2 whitespace-nowrap">Are you sure you have paid your debt?</p>
-                  <div className="w-full flex justify-end space-x-2">
-                    <Button isLoading={loading} onClick={onPay}>
-                      Yes
-                    </Button>
-                    <Button isLoading={loading} styleType="danger" onClick={() => setShowConfirmationDialog(false)}>
-                      No
-                    </Button>
-                  </div>
-                </Card>
-              </Transition>
-            </Else>
-          </If>
-        </Table.Cell>
+                  <Transition
+                    className="absolute bottom-0 right-0 md:right-20 z-10"
+                    show={showConfirmationDialog}
+                    enter="transition"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="transition"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Card>
+                      <p className="mb-2 whitespace-nowrap">Are you sure you have paid your debt?</p>
+                      <div className="w-full flex justify-end space-x-2">
+                        <Button isLoading={loading} onClick={onPay}>
+                          Yes
+                        </Button>
+                        <Button isLoading={loading} styleType="danger" onClick={() => setShowConfirmationDialog(false)}>
+                          No
+                        </Button>
+                      </div>
+                    </Card>
+                  </Transition>
+                </Else>
+              </If>
+            </Table.Cell>
+          </Then>
+        </If>
       </Table.Row>
 
       <Modal isOpen={showDetailModal} title={debt.title} onClose={() => setShow(false)}>

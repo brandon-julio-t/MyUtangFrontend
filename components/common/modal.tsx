@@ -39,7 +39,7 @@ const Modal: FunctionComponent<ModalProps & { title: string }> = ({ children, ti
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl hover:shadow-2xl rounded-2xl">
+            <div className="inline-block w-full max-w-lg my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl hover:shadow-2xl rounded-2xl">
               <Card>
                 <Dialog.Title as="h3" className="mb-4 text-xl font-medium flex items-center justify-between">
                   {title}

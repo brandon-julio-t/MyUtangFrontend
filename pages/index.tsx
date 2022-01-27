@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { CreditCardIcon } from '@heroicons/react/solid';
+import { CreditCardIcon, ClipboardListIcon } from '@heroicons/react/solid';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,9 @@ import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
 import Skeleton from '../components/common/skeleton';
+import DebtHistoryModal from '../components/index/debt-history-modal';
 import LendMoneyModal from '../components/index/lend-money-modal';
+import LendingHistoryModal from '../components/index/lending-history-modal';
 import MyDebts from '../components/index/my-debts';
 import MyLendings from '../components/index/my-lendings';
 import User from '../models/User';
@@ -17,7 +19,9 @@ import { setUser } from '../stores/app';
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [showLendMoneyModal, setShowLendMoneyModal] = useState(false);
+  const [showDebtHistoryModal, setShowDebtHistoryModal] = useState(false);
+  const [showLendingHistoryModal, setShowLendingHistoryModal] = useState(false);
   const { data, loading } = useQuery<{ user: User }>(GQL);
   const router = useRouter();
 
@@ -42,10 +46,18 @@ const Home: NextPage = () => {
             </Else>
           </If>
         </h1>
-        <div className="flex space-x-2">
-          <Button onClick={() => setIsOpen(true)}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Button onClick={() => setShowLendMoneyModal(true)}>
             <CreditCardIcon className="h-5 w-5 mr-2" />
             Lend Money
+          </Button>
+          <Button onClick={() => setShowDebtHistoryModal(true)}>
+            <ClipboardListIcon className="h-5 w-5 mr-2" />
+            Debt History
+          </Button>
+          <Button onClick={() => setShowLendingHistoryModal(true)}>
+            <ClipboardListIcon className="h-5 w-5 mr-2" />
+            Lending History
           </Button>
         </div>
       </Card>
@@ -53,7 +65,9 @@ const Home: NextPage = () => {
       <MyDebts />
       <MyLendings />
 
-      <LendMoneyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <LendMoneyModal isOpen={showLendMoneyModal} onClose={() => setShowLendMoneyModal(false)} />
+      <DebtHistoryModal isOpen={showDebtHistoryModal} onClose={() => setShowDebtHistoryModal(false)} />
+      <LendingHistoryModal isOpen={showLendingHistoryModal} onClose={() => setShowLendingHistoryModal(false)} />
     </Container>
   );
 };
