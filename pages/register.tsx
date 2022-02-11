@@ -1,3 +1,4 @@
+import { PaperAirplaneIcon } from '@heroicons/react/solid';
 import { gql, useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -70,6 +71,7 @@ const Register: NextPage = () => {
             required
           />
           <Button isLoading={loading} type='submit'>
+            <PaperAirplaneIcon className='mr-2 h-5 w-5' />
             Register
           </Button>
         </form>

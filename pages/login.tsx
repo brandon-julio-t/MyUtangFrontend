@@ -1,3 +1,4 @@
+import { LoginIcon } from '@heroicons/react/solid';
 import { gql, useMutation } from '@apollo/client';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -58,6 +59,7 @@ const Login: NextPage = () => {
             required
           />
           <Button isLoading={loading} type='submit'>
+            <LoginIcon className='mr-2 h-5 w-5' />
             Login
           </Button>
         </form>
