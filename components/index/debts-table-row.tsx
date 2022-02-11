@@ -64,16 +64,18 @@ const DebtsTableRow: FunctionComponent<{
             <Table.Cell className='relative'>
               <If condition={isLending}>
                 <Then>
-                  <Button onClick={() => setShowUpdateModal(true)}>
-                    <PencilIcon className='mr-2 h-5 w-5' />
+                  <Button
+                    onClick={() => setShowUpdateModal(true)}
+                    iconName='PencilIcon'>
                     Edit
                   </Button>
                 </Then>
                 <Else>
                   <Button
                     onClick={() => setShowConfirmationDialog(true)}
-                    isLoading={loading}>
-                    <CashIcon className='mr-2 h-5 w-5' /> Pay
+                    isLoading={loading}
+                    iconName='CashIcon'>
+                    Pay
                   </Button>
 
                   <Transition

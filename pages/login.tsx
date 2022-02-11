@@ -58,8 +58,7 @@ const Login: NextPage = () => {
             placeholder='Password'
             required
           />
-          <Button isLoading={loading} type='submit'>
-            <LoginIcon className='mr-2 h-5 w-5' />
+          <Button isLoading={loading} type='submit' iconName='LoginIcon'>
             Login
           </Button>
         </form>

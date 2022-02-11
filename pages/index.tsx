@@ -43,8 +43,8 @@ const Home: NextPage = () => {
   return (
     <Container className='mx-auto my-8 grid grid-cols-1 gap-4'>
       <Card>
-        <header className='mb-4 flex justify-between'>
-          <h1 className='mb-4 flex items-center text-2xl'>
+        <header className='mb-4 flex items-center justify-between'>
+          <h1 className='flex items-center text-2xl'>
             <span className='mr-2'>Hello</span>
             <If condition={loading}>
               <Then>
@@ -55,23 +55,25 @@ const Home: NextPage = () => {
               </Else>
             </If>
           </h1>
-          <Button styleType='danger' onClick={onLogout}>
-            <LogoutIcon className='mr-2 h-5 w-5' />
+          <Button styleType='danger' onClick={onLogout} iconName='LogoutIcon'>
             Logout
           </Button>
         </header>
 
         <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-          <Button onClick={() => setShowLendMoneyModal(true)}>
-            <CreditCardIcon className='mr-2 h-5 w-5' />
+          <Button
+            onClick={() => setShowLendMoneyModal(true)}
+            iconName='CreditCardIcon'>
             Lend Money
           </Button>
-          <Button onClick={() => setShowDebtHistoryModal(true)}>
-            <ClipboardListIcon className='mr-2 h-5 w-5' />
+          <Button
+            onClick={() => setShowDebtHistoryModal(true)}
+            iconName='ClipboardListIcon'>
             Debt History
           </Button>
-          <Button onClick={() => setShowLendingHistoryModal(true)}>
-            <ClipboardListIcon className='mr-2 h-5 w-5' />
+          <Button
+            onClick={() => setShowLendingHistoryModal(true)}
+            iconName='ClipboardListIcon'>
             Lending History
           </Button>
         </div>

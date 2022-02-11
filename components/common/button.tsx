@@ -1,14 +1,43 @@
-import { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import * as SolidIcons from '@heroicons/react/solid';
+import * as OutlineIcons from '@heroicons/react/outline';
+
+import {
+  ButtonHTMLAttributes,
+  ComponentProps,
+  FunctionComponent,
+  SVGProps,
+} from 'react';
+import { Else, If, Then } from 'react-if';
+import LoadingIcon from './loading-icon';
+
+type IconName = keyof typeof SolidIcons | keyof typeof OutlineIcons;
 
 interface Props {
   isLoading?: boolean;
   styleType?: 'primary' | 'danger';
+  iconName?: IconName;
+  iconType?: 'solid' | 'outline';
 }
 
 const Button: FunctionComponent<
   ButtonHTMLAttributes<HTMLButtonElement> & Props
-> = ({ children, className, isLoading, styleType, onClick, ...rest }) => {
+> = ({
+  children,
+  className,
+  isLoading,
+  styleType,
+  iconName,
+  iconType,
+  onClick,
+  ...rest
+}) => {
   const isPrimary = !styleType || styleType === 'primary';
+
+  let Icon: FunctionComponent<ComponentProps<'svg'>> = () => <></>;
+  if (iconName) {
+    Icon =
+      iconType === 'outline' ? OutlineIcons[iconName] : SolidIcons[iconName];
+  }
 
   return (
     <button
@@ -49,6 +78,18 @@ const Button: FunctionComponent<
         e.stopPropagation();
         if (onClick) onClick(e);
       }}>
+      <If condition={iconName}>
+        <Then>
+          <If condition={isLoading}>
+            <Then>
+              <LoadingIcon className='mr-2 h-5 w-5' />
+            </Then>
+            <Else>
+              <Icon className='mr-2 h-5 w-5' />
+            </Else>
+          </If>
+        </Then>
+      </If>
       {children}
     </button>
   );
