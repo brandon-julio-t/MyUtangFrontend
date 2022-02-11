@@ -1,10 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
-import { Transition } from '@headlessui/react';
-import { CashIcon, PencilIcon } from '@heroicons/react/solid';
-import { FunctionComponent, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import { addDebtHistory, removeDebt } from '../../stores/index-slice';
 import Button from '../common/button';
@@ -12,6 +5,13 @@ import Card from '../common/card';
 import Modal from '../common/modal';
 import Table from '../common/table';
 import LendMoneyModal from './lend-money-modal';
+import { gql, useMutation } from '@apollo/client';
+import { Transition } from '@headlessui/react';
+import { CashIcon, PencilIcon } from '@heroicons/react/solid';
+import { FunctionComponent, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Else, If, Then } from 'react-if';
+import { useDispatch } from 'react-redux';
 
 const DebtsTableRow: FunctionComponent<{
   idx: number;

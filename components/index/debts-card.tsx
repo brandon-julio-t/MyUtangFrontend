@@ -1,10 +1,10 @@
+import Debt from '../../models/Debt';
+import Card from '../common/card';
+import DebtsTable from './debts-table';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { FunctionComponent } from 'react';
 import { Else, If, Then } from 'react-if';
-import Debt from '../../models/Debt';
-import Card from '../common/card';
-import DebtsTable from './debts-table';
 
 const DebtsCard: FunctionComponent<{
   debts: Debt[];

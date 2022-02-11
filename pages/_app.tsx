@@ -1,3 +1,7 @@
+import Button from '../components/common/button';
+import client from '../libs/ApolloClient';
+import { appStore } from '../stores/app';
+import '../styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -5,10 +9,6 @@ import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { If, Then } from 'react-if';
 import { Provider } from 'react-redux';
-import Button from '../components/common/button';
-import client from '../libs/ApolloClient';
-import { appStore } from '../stores/app';
-import '../styles/globals.css';
 
 type Theme = 'light' | 'dark';
 

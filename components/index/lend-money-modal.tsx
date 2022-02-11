@@ -1,7 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
-import { FormEventHandler, FunctionComponent, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import { AppDispatch } from '../../stores/app';
 import { addLending, updateLending } from '../../stores/index-slice';
@@ -9,6 +5,10 @@ import Button from '../common/button';
 import Input from '../common/input';
 import Modal, { ModalProps } from '../common/modal';
 import UsersSelectInput from './users-select-input';
+import { gql, useMutation } from '@apollo/client';
+import { FormEventHandler, FunctionComponent, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
 const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
   isOpen,

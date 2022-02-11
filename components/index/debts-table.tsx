@@ -1,9 +1,9 @@
-import { FunctionComponent } from 'react';
-import { Else, If, Then } from 'react-if';
 import Debt from '../../models/Debt';
 import Skeleton from '../common/skeleton';
 import Table from '../common/table';
 import DebtsTableRow from './debts-table-row';
+import { FunctionComponent } from 'react';
+import { Else, If, Then } from 'react-if';
 
 const DebtsTable: FunctionComponent<{
   debts: Debt[];

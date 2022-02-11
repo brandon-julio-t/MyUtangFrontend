@@ -1,6 +1,6 @@
-import * as SolidIcons from '@heroicons/react/solid';
+import LoadingIcon from './loading-icon';
 import * as OutlineIcons from '@heroicons/react/outline';
-
+import * as SolidIcons from '@heroicons/react/solid';
 import {
   ButtonHTMLAttributes,
   ComponentProps,
@@ -9,7 +9,6 @@ import {
   SVGProps,
 } from 'react';
 import { Else, If, Then } from 'react-if';
-import LoadingIcon from './loading-icon';
 
 type IconName = keyof typeof SolidIcons | keyof typeof OutlineIcons;
 

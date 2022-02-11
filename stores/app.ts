@@ -1,6 +1,6 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { indexReducer } from './index-slice';
 import User from '../models/User';
+import { indexReducer } from './index-slice';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 export const appSlice = createSlice({
   name: 'app',

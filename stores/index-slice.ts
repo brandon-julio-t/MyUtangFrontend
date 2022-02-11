@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import Debt from '../models/Debt';
+import { createSlice } from '@reduxjs/toolkit';
 
 const { reducer, actions } = createSlice({
   name: 'index',

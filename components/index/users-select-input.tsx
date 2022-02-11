@@ -1,10 +1,10 @@
+import User from '../../models/User';
+import { AppRootState } from '../../stores/app';
+import Input from '../common/input';
 import { gql, useQuery } from '@apollo/client';
 import { FunctionComponent, useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
 import { useSelector } from 'react-redux';
-import User from '../../models/User';
-import { AppRootState } from '../../stores/app';
-import Input from '../common/input';
 
 const UsersSelectInput: FunctionComponent<{
   userId: string;

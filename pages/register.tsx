@@ -1,15 +1,15 @@
-import { PaperAirplaneIcon } from '@heroicons/react/solid';
-import { gql, useMutation } from '@apollo/client';
-import { NextPage } from 'next';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FormEventHandler, useState } from 'react';
-import toast from 'react-hot-toast';
 import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
 import Input from '../components/common/input';
 import AuthPayload from '../models/AuthPayload';
+import { gql, useMutation } from '@apollo/client';
+import { PaperAirplaneIcon } from '@heroicons/react/solid';
+import { NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEventHandler, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Register: NextPage = () => {
   const [userName, setUsername] = useState('');
@@ -70,7 +70,10 @@ const Register: NextPage = () => {
             placeholder='Confirm password'
             required
           />
-          <Button isLoading={loading} type='submit' iconName='PaperAirplaneIcon'>
+          <Button
+            isLoading={loading}
+            type='submit'
+            iconName='PaperAirplaneIcon'>
             Register
           </Button>
         </form>

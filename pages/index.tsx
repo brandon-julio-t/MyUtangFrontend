@@ -1,14 +1,3 @@
-import { gql, useQuery } from '@apollo/client';
-import {
-  CreditCardIcon,
-  ClipboardListIcon,
-  LogoutIcon,
-} from '@heroicons/react/solid';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
 import Button from '../components/common/button';
 import Card from '../components/common/card';
 import Container from '../components/common/container';
@@ -20,6 +9,17 @@ import MyDebts from '../components/index/my-debts';
 import MyLendings from '../components/index/my-lendings';
 import User from '../models/User';
 import { setUser } from '../stores/app';
+import { gql, useQuery } from '@apollo/client';
+import {
+  CreditCardIcon,
+  ClipboardListIcon,
+  LogoutIcon,
+} from '@heroicons/react/solid';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Else, If, Then } from 'react-if';
+import { useDispatch } from 'react-redux';
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
