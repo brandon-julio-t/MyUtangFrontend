@@ -5,6 +5,7 @@ import {
   ButtonHTMLAttributes,
   ComponentProps,
   FunctionComponent,
+  HTMLAttributes,
   SVGProps,
 } from 'react';
 import { Else, If, Then } from 'react-if';
@@ -33,7 +34,7 @@ const Button: FunctionComponent<
 }) => {
   const isPrimary = !styleType || styleType === 'primary';
 
-  let Icon: FunctionComponent<ComponentProps<'svg'>> = () => <></>;
+  let Icon: FunctionComponent<HTMLAttributes<SVGElement>> = () => <></>;
   if (iconName) {
     Icon =
       iconType === 'outline' ? OutlineIcons[iconName] : SolidIcons[iconName];
