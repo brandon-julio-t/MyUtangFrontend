@@ -1,16 +1,13 @@
+import { IconName } from '../../types/hero-icon-name';
 import LoadingIcon from './loading-icon';
-import * as OutlineIcons from '@heroicons/react/outline';
-import * as SolidIcons from '@heroicons/react/solid';
+import dynamic from 'next/dynamic';
 import {
   ButtonHTMLAttributes,
   ComponentProps,
+  ComponentType,
   FunctionComponent,
-  HTMLAttributes,
-  SVGProps,
 } from 'react';
 import { Else, If, Then } from 'react-if';
-
-type IconName = keyof typeof SolidIcons | keyof typeof OutlineIcons;
 
 interface Props {
   isLoading?: boolean;
@@ -33,10 +30,16 @@ const Button: FunctionComponent<
 }) => {
   const isPrimary = !styleType || styleType === 'primary';
 
-  let Icon: FunctionComponent<HTMLAttributes<SVGElement>> = () => <></>;
+  let Icon: ComponentType<ComponentProps<'svg'>> = () => <></>;
   if (iconName) {
     Icon =
-      iconType === 'outline' ? OutlineIcons[iconName] : SolidIcons[iconName];
+      iconType === 'outline'
+        ? dynamic(() =>
+            import('@heroicons/react/outline').then(mod => mod[iconName])
+          )
+        : dynamic(() =>
+            import('@heroicons/react/solid').then(mod => mod[iconName])
+          );
   }
 
   return (
