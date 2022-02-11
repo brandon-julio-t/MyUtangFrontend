@@ -29,7 +29,13 @@ const DebtsTable: FunctionComponent<{
         <If condition={debts.length}>
           <Then>
             {debts.map((debt, idx) => (
-              <DebtsTableRow key={debt.id} idx={idx} debt={debt} isViewOnly={isViewOnly} isLending={isLending} />
+              <DebtsTableRow
+                key={debt.id}
+                idx={idx}
+                debt={debt}
+                isViewOnly={isViewOnly}
+                isLending={isLending}
+              />
             ))}
           </Then>
           <Else>
@@ -45,7 +51,7 @@ const DebtsTable: FunctionComponent<{
               </Then>
               <Else>
                 <Table.Row idx={0}>
-                  <Table.Cell colSpan={4} className="text-center">
+                  <Table.Cell colSpan={4} className='text-center'>
                     {isLending ? 'No unpaid lendings.' : 'No unpaid debts.'}
                   </Table.Cell>
                 </Table.Row>

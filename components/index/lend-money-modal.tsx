@@ -10,7 +10,11 @@ import Input from '../common/input';
 import Modal, { ModalProps } from '../common/modal';
 import UsersSelectInput from './users-select-input';
 
-const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({ isOpen, onClose, debt }) => {
+const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
+  isOpen,
+  onClose,
+  debt,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [createDebt, { loading: createDebtLoading }] = useMutation<
@@ -35,7 +39,9 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({ isOpe
       debtorId ? null : 'Please select a debtor.',
       title ? null : 'Title must be filled.',
       description ? null : 'Description must be filled.',
-      amount >= 1000 ? null : `Amount must be at least ${Number(1000).toLocaleString()}.`,
+      amount >= 1000
+        ? null
+        : `Amount must be at least ${Number(1000).toLocaleString()}.`,
     ].filter(e => e);
 
     if (errors.length) {
@@ -44,21 +50,29 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({ isOpe
     }
 
     if (debt) {
-      const { data } = await toast.promise(updateDebt({ variables: { debtId: debt.id, amount, description, title } }), {
-        loading: 'Updating debt...',
-        success: 'Update debt success.',
-        error: 'Update debt failed. Please try again.',
-      });
+      const { data } = await toast.promise(
+        updateDebt({
+          variables: { debtId: debt.id, amount, description, title },
+        }),
+        {
+          loading: 'Updating debt...',
+          success: 'Update debt success.',
+          error: 'Update debt failed. Please try again.',
+        }
+      );
 
       if (data?.updateDebt) {
         dispatch(updateLending(data.updateDebt));
       }
     } else {
-      const { data } = await toast.promise(createDebt({ variables: { amount, debtorId, description, title } }), {
-        loading: 'Creating debt...',
-        success: 'Create debt success.',
-        error: 'Create debt failed. Please try again.',
-      });
+      const { data } = await toast.promise(
+        createDebt({ variables: { amount, debtorId, description, title } }),
+        {
+          loading: 'Creating debt...',
+          success: 'Create debt success.',
+          error: 'Create debt failed. Please try again.',
+        }
+      );
 
       if (data?.createDebt) {
         dispatch(addLending(data.createDebt));
@@ -67,28 +81,40 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({ isOpe
   };
 
   return (
-    <Modal title="Lend Money" isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4">
-        <UsersSelectInput onUserChange={userId => setdebtorId(userId)} userId={debtorId} disabled={!!debt} />
-        <Input type="text" onChange={e => setTitle(e.target.value)} value={title} placeholder="Title" required />
+    <Modal title='Lend Money' isOpen={isOpen} onClose={onClose}>
+      <form onSubmit={onSubmit} className='grid grid-cols-1 gap-4'>
+        <UsersSelectInput
+          onUserChange={userId => setdebtorId(userId)}
+          userId={debtorId}
+          disabled={!!debt}
+        />
         <Input
-          type="textarea"
-          onChange={e => setDescription(e.target.value)}
-          value={description}
-          placeholder="Description"
+          type='text'
+          onChange={e => setTitle(e.target.value)}
+          value={title}
+          placeholder='Title'
           required
         />
         <Input
-          type="number"
+          type='textarea'
+          onChange={e => setDescription(e.target.value)}
+          value={description}
+          placeholder='Description'
+          required
+        />
+        <Input
+          type='number'
           onChange={e => setAmount(Number(e.target.value))}
           value={amount}
-          placeholder="Amount"
+          placeholder='Amount'
           min={1000}
           required
         />
-        <div className="grid grid-cols-2 gap-4">
-          <Button isLoading={createDebtLoading || updateDebtLoading}>Submit</Button>
-          <Button type="button" onClick={onClose} styleType="danger">
+        <div className='grid grid-cols-2 gap-4'>
+          <Button isLoading={createDebtLoading || updateDebtLoading}>
+            Submit
+          </Button>
+          <Button type='button' onClick={onClose} styleType='danger'>
             Cancel
           </Button>
         </div>
@@ -98,8 +124,18 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({ isOpe
 };
 
 const CREATE_GQL = gql`
-  mutation CreateDebt($title: String!, $description: String!, $debtorId: ID!, $amount: Int!) {
-    createDebt(title: $title, description: $description, debtorId: $debtorId, amount: $amount) {
+  mutation CreateDebt(
+    $title: String!
+    $description: String!
+    $debtorId: ID!
+    $amount: Int!
+  ) {
+    createDebt(
+      title: $title
+      description: $description
+      debtorId: $debtorId
+      amount: $amount
+    ) {
       id
       title
       description
@@ -113,8 +149,18 @@ const CREATE_GQL = gql`
 `;
 
 const UPDATE_GQL = gql`
-  mutation UpdateDebt($debtId: ID!, $title: String!, $description: String!, $amount: Int!) {
-    updateDebt(debtId: $debtId, title: $title, description: $description, amount: $amount) {
+  mutation UpdateDebt(
+    $debtId: ID!
+    $title: String!
+    $description: String!
+    $amount: Int!
+  ) {
+    updateDebt(
+      debtId: $debtId
+      title: $title
+      description: $description
+      amount: $amount
+    ) {
       id
       title
       description

@@ -19,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const isUserPerfersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isUserPerfersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
     const fallbackTheme = isUserPerfersDark ? 'dark' : 'light';
     const savedTheme = localStorage?.getItem('theme') as Theme;
     setTheme(savedTheme ?? fallbackTheme);
@@ -38,13 +40,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <If condition={isLoaded}>
           <Then>
             <Component {...pageProps} />
-            <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="fixed right-4 bottom-4">
+            <Button
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              className='fixed right-4 bottom-4'>
               <If condition={theme === 'light'}>
                 <Then>
-                  <SunIcon className="h-5 w-5" /> <span className="ml-2">Light</span>
+                  <SunIcon className='h-5 w-5' />{' '}
+                  <span className='ml-2'>Light</span>
                 </Then>
                 <Else>
-                  <MoonIcon className="h-5 w-5" /> <span className="ml-2">Dark</span>
+                  <MoonIcon className='h-5 w-5' />{' '}
+                  <span className='ml-2'>Dark</span>
                 </Else>
               </If>
             </Button>

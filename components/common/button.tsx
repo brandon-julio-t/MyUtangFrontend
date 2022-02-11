@@ -1,20 +1,13 @@
-import Link from 'next/link';
 import { ButtonHTMLAttributes, FunctionComponent } from 'react';
-import { Else, If, Then } from 'react-if';
 
 interface Props {
   isLoading?: boolean;
   styleType?: 'primary' | 'danger';
 }
 
-const Button: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement> & Props> = ({
-  children,
-  className,
-  isLoading,
-  styleType,
-  onClick,
-  ...rest
-}) => {
+const Button: FunctionComponent<
+  ButtonHTMLAttributes<HTMLButtonElement> & Props
+> = ({ children, className, isLoading, styleType, onClick, ...rest }) => {
   const isPrimary = !styleType || styleType === 'primary';
 
   return (
@@ -55,8 +48,7 @@ const Button: FunctionComponent<ButtonHTMLAttributes<HTMLButtonElement> & Props>
       onClick={e => {
         e.stopPropagation();
         if (onClick) onClick(e);
-      }}
-    >
+      }}>
       {children}
     </button>
   );

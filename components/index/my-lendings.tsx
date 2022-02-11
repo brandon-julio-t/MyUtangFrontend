@@ -7,7 +7,9 @@ import { loadLendings } from '../../stores/index-slice';
 import DebtsCard from './debts-card';
 
 const MyLendings: FunctionComponent = () => {
-  const lendings = useSelector<AppRootState, Debt[]>(state => state.index.lendings);
+  const lendings = useSelector<AppRootState, Debt[]>(
+    state => state.index.lendings
+  );
   const dispatch = useDispatch();
 
   const { data, loading } = useQuery<{ unpaidLendings: Debt[] }>(GQL);

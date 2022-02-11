@@ -2,7 +2,6 @@ import { gql, useQuery } from '@apollo/client';
 import { FunctionComponent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Debt from '../../models/Debt';
-import User from '../../models/User';
 import { AppRootState } from '../../stores/app';
 import { loadDebts } from '../../stores/index-slice';
 import DebtsCard from './debts-card';
