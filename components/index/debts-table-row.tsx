@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { Else, If, Then } from 'react-if';
 import { useDispatch } from 'react-redux';
 
+
 const DebtsTableRow: FunctionComponent<{
   idx: number;
   debt: Debt;
@@ -131,6 +132,15 @@ const GQL = gql`
   mutation PayDebt($debtId: ID!) {
     payDebt(debtId: $debtId) {
       id
+      title
+      description
+      debtor {
+        userName
+      }
+      lender {
+        userName
+      }
+      amount
     }
   }
 `;
