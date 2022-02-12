@@ -1,11 +1,11 @@
-import Debt from '../../models/Debt';
-import { AppRootState } from '../../stores/app';
-import { loadDebtHistory } from '../../stores/index-slice';
-import Modal, { ModalProps } from '../common/modal';
-import DebtsTable from './debts-table';
 import { gql, useQuery } from '@apollo/client';
 import React, { FunctionComponent, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Debt from '../../models/Debt';
+import { AppRootState } from '../../stores/app';
+import { loadLendingHistory } from '../../stores/index-slice';
+import Modal, { ModalProps } from '../common/modal';
+import DebtsTable from './debts-table';
 
 const LendingHistoryModal: FunctionComponent<ModalProps> = ({
   isOpen,
@@ -19,7 +19,7 @@ const LendingHistoryModal: FunctionComponent<ModalProps> = ({
   const { data, loading } = useQuery<{ lendingHistory: Debt[] }>(GQL);
 
   useEffect(() => {
-    dispatch(loadDebtHistory(data?.lendingHistory ?? []));
+    dispatch(loadLendingHistory(data?.lendingHistory ?? []));
   }, [data?.lendingHistory, dispatch]);
 
   return (

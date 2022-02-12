@@ -14,8 +14,9 @@ const UsersSelectInput: FunctionComponent<{
   const { data, loading } = useQuery<{ users: User[] }>(GQL);
   const user = useSelector<AppRootState, User | null>(state => state.app.user);
 
-  const selectUsersOtherThanCurrentUser = (users: User[]) =>
-    users.filter(u => u.id !== user?.id);
+  const selectUsersOtherThanCurrentUser = (users: User[]) => {
+    return users.filter(u => u.id !== user?.id);
+  };
 
   useEffect(() => {
     if (!userId && data?.users.length) {
