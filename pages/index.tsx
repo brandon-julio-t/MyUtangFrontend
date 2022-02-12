@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   return (
     <Container className='mx-auto my-8 grid grid-cols-1 gap-4'>
       <Card>
-        <header className='mb-4 flex items-center justify-between'>
+        <header className='mb-4 flex flex-col md:flex-row items-center justify-between'>
           <h1 className='flex items-center text-2xl'>
             <span className='mr-2'>Hello</span>
             <If condition={loading}>
@@ -55,7 +55,11 @@ const Home: NextPage = () => {
               </Else>
             </If>
           </h1>
-          <Button styleType='danger' onClick={onLogout} iconName='LogoutIcon'>
+          <Button
+            styleType='danger'
+            onClick={onLogout}
+            iconName='LogoutIcon'
+            className='w-full mt-4 md:mt-0 md:w-fit'>
             Logout
           </Button>
         </header>

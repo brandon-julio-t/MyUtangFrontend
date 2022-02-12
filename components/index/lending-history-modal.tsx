@@ -1,11 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
-import React, { FunctionComponent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Debt from '../../models/Debt';
 import { AppRootState } from '../../stores/app';
 import { loadLendingHistory } from '../../stores/index-slice';
 import Modal, { ModalProps } from '../common/modal';
 import DebtsTable from './debts-table';
+import { gql, useQuery } from '@apollo/client';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LendingHistoryModal: FunctionComponent<ModalProps> = ({
   isOpen,
