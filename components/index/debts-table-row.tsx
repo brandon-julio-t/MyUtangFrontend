@@ -68,14 +68,14 @@ const DebtsTableRow: FunctionComponent<{ idx: number; debt: Debt; isLending: boo
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Card className="absolute -bottom-8 right-0 md:right-8 origin-center z-10">
+                <Card className="absolute -bottom-4 right-0 md:right-16 z-10">
                   <p className="mb-2 whitespace-nowrap">Are you sure you have paid your debt?</p>
                   <div className="w-full flex justify-end space-x-2">
-                    <Button isLoading={loading} onClick={onPay}>
-                      Yes
-                    </Button>
                     <Button isLoading={loading} styleType="danger" onClick={() => setShowConfirmationDialog(false)}>
                       No
+                    </Button>
+                    <Button isLoading={loading} onClick={onPay}>
+                      Yes
                     </Button>
                   </div>
                 </Card>
