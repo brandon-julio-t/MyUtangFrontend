@@ -92,14 +92,14 @@ const DebtsTableRow: FunctionComponent<{
                         Are you sure you have paid your debt?
                       </p>
                       <div className='flex w-full justify-end space-x-2'>
-                        <Button isLoading={loading} onClick={onPay}>
-                          Yes
-                        </Button>
                         <Button
                           isLoading={loading}
                           styleType='danger'
                           onClick={() => setShowConfirmationDialog(false)}>
                           No
+                        </Button>
+                        <Button isLoading={loading} onClick={onPay}>
+                          Yes
                         </Button>
                       </div>
                     </Card>
