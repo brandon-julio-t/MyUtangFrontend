@@ -1,51 +1,84 @@
+import Button from '../components/common/button';
+import Card from '../components/common/card';
+import Container from '../components/common/container';
+import Skeleton from '../components/common/skeleton';
+import DebtHistoryModal from '../components/index/debt-history-modal';
+import LendMoneyModal from '../components/index/lend-money-modal';
+import LendingHistoryModal from '../components/index/lending-history-modal';
+import MyDebts from '../components/index/my-debts';
+import MyLendings from '../components/index/my-lendings';
+import User from '../models/User';
+import { setUser } from '../stores/app';
 import { gql, useQuery } from '@apollo/client';
-import { CreditCardIcon } from '@heroicons/react/solid';
+import {
+  CreditCardIcon,
+  ClipboardListIcon,
+  LogoutIcon,
+} from '@heroicons/react/solid';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Else, If, Then } from 'react-if';
 import { useDispatch } from 'react-redux';
-import Button from '../components/common/button';
-import Card from '../components/common/card';
-import Container from '../components/common/container';
-import Skeleton from '../components/common/skeleton';
-import LendMoneyModal from '../components/index/lend-money-modal';
-import MyDebts from '../components/index/my-debts';
-import MyLendings from '../components/index/my-lendings';
-import User from '../models/User';
-import { setUser } from '../stores/app';
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const [showLendMoneyModal, setShowLendMoneyModal] = useState(false);
+  const [showDebtHistoryModal, setShowDebtHistoryModal] = useState(false);
+  const [showLendingHistoryModal, setShowLendingHistoryModal] = useState(false);
   const { data, loading } = useQuery<{ user: User }>(GQL);
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !data?.user) {
-      router.push('/login');
-    }
+    if (!loading && !data?.user) router.push('/login');
     dispatch(setUser(data?.user ?? null));
   }, [data?.user, dispatch, loading, router]);
 
+  const onLogout = () => {
+    document.cookie = 'token=';
+    localStorage.removeItem('token');
+    router.push('/login');
+  };
+
   return (
-    <Container className="mx-auto my-8 grid grid-cols-1 gap-4">
+    <Container className='mx-auto my-8 grid grid-cols-1 gap-4'>
       <Card>
-        <h1 className="flex items-center text-2xl mb-4">
-          <span className="mr-2">Hello</span>
-          <If condition={loading}>
-            <Then>
-              <Skeleton className="max-w-xs" />
-            </Then>
-            <Else>
-              <span className="font-bold">{data?.user.userName}</span>
-            </Else>
-          </If>
-        </h1>
-        <div className="flex space-x-2">
-          <Button onClick={() => setIsOpen(true)}>
-            <CreditCardIcon className="h-5 w-5 mr-2" />
+        <header className='mb-4 flex flex-col md:flex-row items-center justify-between'>
+          <h1 className='flex items-center text-2xl'>
+            <span className='mr-2'>Hello</span>
+            <If condition={loading}>
+              <Then>
+                <Skeleton className='max-w-xs' />
+              </Then>
+              <Else>
+                <span className='font-bold'>{data?.user.userName}</span>
+              </Else>
+            </If>
+          </h1>
+          <Button
+            styleType='danger'
+            onClick={onLogout}
+            iconName='LogoutIcon'
+            className='w-full mt-4 md:mt-0 md:w-fit'>
+            Logout
+          </Button>
+        </header>
+
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
+          <Button
+            onClick={() => setShowLendMoneyModal(true)}
+            iconName='CreditCardIcon'>
             Lend Money
+          </Button>
+          <Button
+            onClick={() => setShowDebtHistoryModal(true)}
+            iconName='ClipboardListIcon'>
+            Debt History
+          </Button>
+          <Button
+            onClick={() => setShowLendingHistoryModal(true)}
+            iconName='ClipboardListIcon'>
+            Lending History
           </Button>
         </div>
       </Card>
@@ -53,7 +86,18 @@ const Home: NextPage = () => {
       <MyDebts />
       <MyLendings />
 
-      <LendMoneyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <LendMoneyModal
+        isOpen={showLendMoneyModal}
+        onClose={() => setShowLendMoneyModal(false)}
+      />
+      <DebtHistoryModal
+        isOpen={showDebtHistoryModal}
+        onClose={() => setShowDebtHistoryModal(false)}
+      />
+      <LendingHistoryModal
+        isOpen={showLendingHistoryModal}
+        onClose={() => setShowLendingHistoryModal(false)}
+      />
     </Container>
   );
 };

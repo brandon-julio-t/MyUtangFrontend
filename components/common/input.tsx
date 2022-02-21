@@ -1,7 +1,9 @@
 import { FunctionComponent, InputHTMLAttributes } from 'react';
 
 const Input: FunctionComponent<
-  InputHTMLAttributes<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  InputHTMLAttributes<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >
 > = props => {
   const classNames = [
     'transition',

@@ -1,16 +1,23 @@
-import { FunctionComponent, HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from 'react';
+import {
+  FunctionComponent,
+  HTMLAttributes,
+  TdHTMLAttributes,
+  ThHTMLAttributes,
+} from 'react';
 
 const Table: FunctionComponent<HTMLAttributes<HTMLTableElement>> & {
   HeadSection: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>>;
   BodySection: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>>;
-  Row: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }>;
+  Row: FunctionComponent<
+    ThHTMLAttributes<HTMLTableRowElement> & { idx: number }
+  >;
   Head: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>>;
   Cell: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>>;
 } = ({ className, children, ...rest }) => {
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <div className="transition border border-slate-300 dark:border-zinc-700 rounded-2xl overflow-hidden shadow hover:shadow-md min-w-full inline-block overflow-x-auto">
-        <table {...rest} className="min-w-full">
+      <div className='inline-block min-w-full overflow-hidden overflow-x-auto rounded-2xl border border-slate-300 shadow transition hover:shadow-md dark:border-zinc-700'>
+        <table {...rest} className='min-w-full'>
           {children}
         </table>
       </div>
@@ -18,18 +25,25 @@ const Table: FunctionComponent<HTMLAttributes<HTMLTableElement>> & {
   );
 };
 
-const THead: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({ className, children, ...rest }) => {
+const THead: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   return (
     <thead
       {...rest}
-      className={`bg-slate-200 dark:bg-zinc-800 border-b border-zinc-300 dark:border-zinc-700 ${className}`}
-    >
+      className={`border-b border-zinc-300 bg-slate-200 dark:border-zinc-700 dark:bg-zinc-800 ${className}`}>
       {children}
     </thead>
   );
 };
 
-const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({ className, children, ...rest }) => {
+const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   return (
     <tbody {...rest} className={`divide-y dark:divide-zinc-700 ${className}`}>
       {children}
@@ -37,25 +51,27 @@ const TBody: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({ cla
   );
 };
 
-const TR: FunctionComponent<ThHTMLAttributes<HTMLTableRowElement> & { idx: number }> = ({
-  className,
-  children,
-  idx,
-  ...rest
-}) => {
+const TR: FunctionComponent<
+  ThHTMLAttributes<HTMLTableRowElement> & { idx: number }
+> = ({ className, children, idx, ...rest }) => {
   return (
     <tr
       {...rest}
       className={`${
-        idx % 2 ? 'bg-white dark:bg-zinc-600' : 'bg-slate-50 dark:bg-zinc-500'
-      } transition hover:bg-slate-100 dark:hover:bg-zinc-400 ${className}`}
-    >
+        idx % 2
+          ? 'bg-slate-50 dark:bg-zinc-600/50'
+          : 'bg-white dark:bg-zinc-600/75'
+      } transition hover:bg-slate-100 dark:hover:bg-zinc-600 ${className}`}>
       {children}
     </tr>
   );
 };
 
-const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...rest }) => {
+const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   return (
     <th {...rest} className={`p-6 text-left font-medium ${className}`}>
       {children}
@@ -63,7 +79,11 @@ const TH: FunctionComponent<ThHTMLAttributes<HTMLTableCellElement>> = ({ classNa
   );
 };
 
-const TD: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...rest }) => {
+const TD: FunctionComponent<TdHTMLAttributes<HTMLTableCellElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   return (
     <td {...rest} className={`px-6 py-4 ${className}`}>
       {children}

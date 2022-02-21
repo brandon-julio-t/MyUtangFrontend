@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
 import Debt from '../models/Debt';
+import { createSlice } from '@reduxjs/toolkit';
 
 const { reducer, actions } = createSlice({
   name: 'index',
@@ -7,6 +7,8 @@ const { reducer, actions } = createSlice({
   initialState: {
     debts: [] as Debt[],
     lendings: [] as Debt[],
+    debtHistory: [] as Debt[],
+    lendingHistory: [] as Debt[],
   },
 
   reducers: {
@@ -24,10 +26,32 @@ const { reducer, actions } = createSlice({
       state.lendings = [...state.lendings, action.payload];
     },
     updateLending: (state, action: { type: string; payload: Debt }) => {
-      state.lendings = state.lendings.map(debt => (debt.id === action.payload.id ? action.payload : debt));
+      state.lendings = state.lendings.map(debt =>
+        debt.id === action.payload.id ? action.payload : debt
+      );
+    },
+
+    loadDebtHistory: (state, action: { type: string; payload: Debt[] }) => {
+      state.debtHistory = action.payload;
+    },
+    addDebtHistory: (state, action: { type: string; payload: Debt }) => {
+      state.debtHistory = [...state.debtHistory, action.payload];
+    },
+
+    loadLendingHistory: (state, action: { type: string; payload: Debt[] }) => {
+      state.lendingHistory = action.payload;
     },
   },
 });
 
 export const indexReducer = reducer;
-export const { loadDebts, removeDebt, loadLendings, addLending, updateLending } = actions;
+export const {
+  loadDebts,
+  removeDebt,
+  loadLendings,
+  addLending,
+  updateLending,
+  loadDebtHistory,
+  addDebtHistory,
+  loadLendingHistory,
+} = actions;

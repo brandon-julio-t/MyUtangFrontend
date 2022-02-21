@@ -1,10 +1,10 @@
+import User from '../../models/User';
+import { AppRootState } from '../../stores/app';
+import Input from '../common/input';
 import { gql, useQuery } from '@apollo/client';
 import { FunctionComponent, useEffect } from 'react';
 import { Else, If, Then } from 'react-if';
 import { useSelector } from 'react-redux';
-import User from '../../models/User';
-import { AppRootState } from '../../stores/app';
-import Input from '../common/input';
 
 const UsersSelectInput: FunctionComponent<{
   userId: string;
@@ -14,7 +14,9 @@ const UsersSelectInput: FunctionComponent<{
   const { data, loading } = useQuery<{ users: User[] }>(GQL);
   const user = useSelector<AppRootState, User | null>(state => state.app.user);
 
-  const selectUsersOtherThanCurrentUser = (users: User[]) => users.filter(u => u.id !== user?.id);
+  const selectUsersOtherThanCurrentUser = (users: User[]) => {
+    return users.filter(u => u.id !== user?.id);
+  };
 
   useEffect(() => {
     if (!userId && data?.users.length) {
@@ -25,17 +27,16 @@ const UsersSelectInput: FunctionComponent<{
   return (
     <Input
       {...rest}
-      type="select"
+      type='select'
       onChange={e => onUserChange(e.target.value)}
       value={userId}
-      disabled={disabled || loading}
-    >
+      disabled={disabled || loading}>
       <If condition={loading}>
         <Then>
           <option>Loading...</option>
         </Then>
         <Else>
-          <option value="">-- Select User --</option>
+          <option value=''>-- Select User --</option>
           {selectUsersOtherThanCurrentUser(data?.users ?? []).map(user => (
             <option key={user.id} value={user.id}>
               {user.userName}

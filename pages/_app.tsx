@@ -1,15 +1,14 @@
-import { ApolloProvider } from '@apollo/client';
-import { MoonIcon, SunIcon } from '@heroicons/react/solid';
-import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { Else, If, Then } from 'react-if';
-import { Provider } from 'react-redux';
 import Button from '../components/common/button';
 import client from '../libs/ApolloClient';
 import { appStore } from '../stores/app';
 import '../styles/globals.css';
+import { ApolloProvider } from '@apollo/client';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { If, Then } from 'react-if';
+import { Provider } from 'react-redux';
 
 type Theme = 'light' | 'dark';
 
@@ -19,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const isUserPerfersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isUserPerfersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
     const fallbackTheme = isUserPerfersDark ? 'dark' : 'light';
     const savedTheme = localStorage?.getItem('theme') as Theme;
     setTheme(savedTheme ?? fallbackTheme);
@@ -38,15 +39,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <If condition={isLoaded}>
           <Then>
             <Component {...pageProps} />
-            <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="fixed right-4 bottom-4">
-              <If condition={theme === 'light'}>
-                <Then>
-                  <SunIcon className="h-5 w-5" /> <span className="ml-2">Light</span>
-                </Then>
-                <Else>
-                  <MoonIcon className="h-5 w-5" /> <span className="ml-2">Dark</span>
-                </Else>
-              </If>
+            <Button
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              className='fixed right-4 bottom-4'
+              iconName={theme === 'light' ? 'SunIcon' : 'MoonIcon'}>
+              {theme === 'light' ? 'Light' : 'Dark'}
             </Button>
           </Then>
         </If>
