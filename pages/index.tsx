@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         <header className='mb-4 flex flex-col md:flex-row items-center justify-between'>
           <h1 className='flex items-center text-2xl'>
             <span className='mr-2'>Hello</span>
-            <If condition={loading}>
+            <If condition={loading || !data?.user.userName}>
               <Then>
                 <Skeleton className='max-w-xs' />
               </Then>
