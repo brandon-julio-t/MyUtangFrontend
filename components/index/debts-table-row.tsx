@@ -1,9 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
-import { Transition } from '@headlessui/react';
-import { FunctionComponent, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import Button from '../common/button';
 import Modal from '../common/modal';
@@ -11,6 +5,12 @@ import Table from '../common/table';
 import LendMoneyModal from './lend-money-modal';
 import MarkLendingAsPaidButton from './mark-lending-as-paid-button';
 import PayDebtButton from './pay-debt-button';
+import { gql, useMutation } from '@apollo/client';
+import { Transition } from '@headlessui/react';
+import { FunctionComponent, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Else, If, Then } from 'react-if';
+import { useDispatch } from 'react-redux';
 
 const DebtsTableRow: FunctionComponent<{
   idx: number;
