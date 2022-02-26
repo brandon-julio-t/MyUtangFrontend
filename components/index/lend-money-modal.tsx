@@ -65,19 +65,18 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
         dispatch(updateLending(data.updateDebt));
       }
     } else {
-      console.log({ debtorId });
-      // const { data } = await toast.promise(
-      //   createDebt({ variables: { amount, debtorId, description, title } }),
-      //   {
-      //     loading: 'Creating debt...',
-      //     success: 'Create debt success.',
-      //     error: 'Create debt failed. Please try again.',
-      //   }
-      // );
+      const { data } = await toast.promise(
+        createDebt({ variables: { amount, debtorId, description, title } }),
+        {
+          loading: 'Creating debt...',
+          success: 'Create debt success.',
+          error: 'Create debt failed. Please try again.',
+        }
+      );
 
-      // if (data?.createDebt) {
-      //   dispatch(addLending(data.createDebt));
-      // }
+      if (data?.createDebt) {
+        dispatch(addLending(data.createDebt));
+      }
     }
   };
 
