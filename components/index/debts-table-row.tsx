@@ -22,7 +22,8 @@ const DebtsTableRow: FunctionComponent<{
       <Table.Row
         idx={idx}
         onClick={() => setShow(true)}
-        className='cursor-pointer'>
+        className='cursor-pointer'
+      >
         <Table.Cell className='whitespace-nowrap'>{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
         <Table.Cell>
@@ -35,7 +36,8 @@ const DebtsTableRow: FunctionComponent<{
                 <Then>
                   <Button
                     onClick={() => setShowUpdateModal(true)}
-                    iconName='PencilIcon'>
+                    iconName='PencilIcon'
+                  >
                     Edit
                   </Button>
                   <MarkLendingAsPaidButton debt={debt} />
@@ -52,7 +54,8 @@ const DebtsTableRow: FunctionComponent<{
       <Modal
         isOpen={showDetailModal}
         title={debt.title}
-        onClose={() => setShow(false)}>
+        onClose={() => setShow(false)}
+      >
         <p className='whitespace-pre-wrap break-words'>{debt.description}</p>
       </Modal>
 

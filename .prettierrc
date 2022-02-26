@@ -1,8 +1,6 @@
 {
   "arrowParens": "avoid",
-  "bracketSameLine": true,
-  "htmlWhitespaceSensitivity": "ignore",
-  "jsxSingleQuote": true,
   "semi": true,
-  "singleQuote": true
+  "singleQuote": true,
+  "jsxSingleQuote": true
 }

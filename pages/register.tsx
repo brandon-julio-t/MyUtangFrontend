@@ -73,7 +73,8 @@ const Register: NextPage = () => {
           <Button
             isLoading={loading}
             type='submit'
-            iconName='PaperAirplaneIcon'>
+            iconName='PaperAirplaneIcon'
+          >
             Register
           </Button>
         </form>

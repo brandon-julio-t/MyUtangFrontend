@@ -44,7 +44,8 @@ const PayDebtButton: FunctionComponent<
         {...rest}
         onClick={() => setShow(true)}
         isLoading={loading}
-        iconName='CashIcon'>
+        iconName='CashIcon'
+      >
         Pay
       </Button>
 
@@ -56,7 +57,8 @@ const PayDebtButton: FunctionComponent<
         enterTo='opacity-100 scale-100'
         leave='transition'
         leaveFrom='opacity-100 scale-100'
-        leaveTo='opacity-0 scale-95'>
+        leaveTo='opacity-0 scale-95'
+      >
         <Card>
           <p className='mb-2 whitespace-nowrap'>
             Are you sure you have paid your debt?
@@ -65,7 +67,8 @@ const PayDebtButton: FunctionComponent<
             <Button
               isLoading={loading}
               styleType='danger'
-              onClick={() => setShow(false)}>
+              onClick={() => setShow(false)}
+            >
               No
             </Button>
             <Button isLoading={loading} onClick={onClick}>

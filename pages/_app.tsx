@@ -42,7 +42,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Button
               onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
               className='fixed right-4 bottom-4'
-              iconName={theme === 'light' ? 'SunIcon' : 'MoonIcon'}>
+              iconName={theme === 'light' ? 'SunIcon' : 'MoonIcon'}
+            >
               {theme === 'light' ? 'Light' : 'Dark'}
             </Button>
           </Then>

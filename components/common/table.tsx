@@ -33,7 +33,8 @@ const THead: FunctionComponent<HTMLAttributes<HTMLTableSectionElement>> = ({
   return (
     <thead
       {...rest}
-      className={`border-b border-zinc-300 bg-slate-200 dark:border-zinc-700 dark:bg-zinc-800 ${className}`}>
+      className={`border-b border-zinc-300 bg-slate-200 dark:border-zinc-700 dark:bg-zinc-800 ${className}`}
+    >
       {children}
     </thead>
   );
@@ -61,7 +62,8 @@ const TR: FunctionComponent<
         idx % 2
           ? 'bg-slate-50 dark:bg-zinc-600/50'
           : 'bg-white dark:bg-zinc-600/75'
-      } transition hover:bg-slate-100 dark:hover:bg-zinc-600 ${className}`}>
+      } transition hover:bg-slate-100 dark:hover:bg-zinc-600 ${className}`}
+    >
       {children}
     </tr>
   );

@@ -59,7 +59,8 @@ const Home: NextPage = () => {
             styleType='danger'
             onClick={onLogout}
             iconName='LogoutIcon'
-            className='w-full mt-4 md:mt-0 md:w-fit'>
+            className='w-full mt-4 md:mt-0 md:w-fit'
+          >
             Logout
           </Button>
         </header>
@@ -67,17 +68,20 @@ const Home: NextPage = () => {
         <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
           <Button
             onClick={() => setShowLendMoneyModal(true)}
-            iconName='CreditCardIcon'>
+            iconName='CreditCardIcon'
+          >
             Lend Money
           </Button>
           <Button
             onClick={() => setShowDebtHistoryModal(true)}
-            iconName='ClipboardListIcon'>
+            iconName='ClipboardListIcon'
+          >
             Debt History
           </Button>
           <Button
             onClick={() => setShowLendingHistoryModal(true)}
-            iconName='ClipboardListIcon'>
+            iconName='ClipboardListIcon'
+          >
             Lending History
           </Button>
         </div>

@@ -80,7 +80,8 @@ const Button: FunctionComponent<
       onClick={e => {
         e.stopPropagation();
         if (onClick) onClick(e);
-      }}>
+      }}
+    >
       <If condition={iconName}>
         <Then>
           <If condition={isLoading}>

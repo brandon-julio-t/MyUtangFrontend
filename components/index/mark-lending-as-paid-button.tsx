@@ -44,7 +44,8 @@ const MarkLendingAsPaidButton: FunctionComponent<
         {...rest}
         onClick={() => setShow(true)}
         isLoading={loading}
-        iconName='CashIcon'>
+        iconName='CashIcon'
+      >
         Mark as Paid
       </Button>
 
@@ -56,14 +57,16 @@ const MarkLendingAsPaidButton: FunctionComponent<
         enterTo='opacity-100 scale-100'
         leave='transition'
         leaveFrom='opacity-100 scale-100'
-        leaveTo='opacity-0 scale-95'>
+        leaveTo='opacity-0 scale-95'
+      >
         <Card>
           <p className='mb-2 whitespace-nowrap'>Are you sure they have paid?</p>
           <div className='flex w-full justify-end space-x-2'>
             <Button
               isLoading={loading}
               styleType='danger'
-              onClick={() => setShow(false)}>
+              onClick={() => setShow(false)}
+            >
               No
             </Button>
             <Button isLoading={loading} onClick={onClick}>

@@ -7,7 +7,7 @@ const Input: FunctionComponent<
 > = props => {
   const classNames = [
     'transition',
-    'rounded',
+    'rounded-lg',
     'dark:bg-zinc-800',
     'dark:placeholder-zinc-400',
     'dark:caret-zinc-400',
