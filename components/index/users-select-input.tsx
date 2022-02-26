@@ -39,6 +39,10 @@ const UsersSelectInput: FunctionComponent<{
   }, [data?.users]);
 
   useEffect(() => {
+    onUserChange(selected.id);
+  }, [selected]);
+
+  useEffect(() => {
     if (!userId && data?.users.length) {
       onUserChange(data.users[0].id);
     }
