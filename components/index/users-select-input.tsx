@@ -39,7 +39,7 @@ const UsersSelectInput: FunctionComponent<{
   }, [data?.users]);
 
   useEffect(() => {
-    onUserChange(selected.id);
+    onUserChange(selected?.id);
   }, [selected]);
 
   useEffect(() => {
