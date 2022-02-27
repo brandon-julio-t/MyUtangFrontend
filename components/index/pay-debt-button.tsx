@@ -64,14 +64,10 @@ const PayDebtButton: FunctionComponent<
             Are you sure you have paid your debt?
           </p>
           <div className='flex w-full justify-end space-x-2'>
-            <Button
-              isLoading={loading}
-              styleType='danger'
-              onClick={() => setShow(false)}
-            >
+            <Button isLoading={loading} onClick={() => setShow(false)}>
               No
             </Button>
-            <Button isLoading={loading} onClick={onClick}>
+            <Button isLoading={loading} styleType='danger' onClick={onClick}>
               Yes
             </Button>
           </div>
