@@ -3,11 +3,12 @@ import client from '../libs/ApolloClient';
 import { appStore } from '../stores/app';
 import '../styles/globals.css';
 import { ApolloProvider } from '@apollo/client';
+import { MoonIcon, SunIcon } from '@heroicons/react/solid';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { If, Then } from 'react-if';
+import { Else, If, Then } from 'react-if';
 import { Provider } from 'react-redux';
 
 type Theme = 'light' | 'dark';
@@ -39,12 +40,24 @@ function MyApp({ Component, pageProps }: AppProps) {
         <If condition={isLoaded}>
           <Then>
             <Component {...pageProps} />
-            <Button
-              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              className='fixed right-4 bottom-4'
-              iconName={theme === 'light' ? 'SunIcon' : 'MoonIcon'}>
-              {theme === 'light' ? 'Light' : 'Dark'}
-            </Button>
+            <If condition={theme === 'light'}>
+              <Then>
+                <Button
+                  onClick={() => setTheme('dark')}
+                  className='fixed right-4 bottom-4'>
+                  <SunIcon className='h-5 w-5' />
+                  Light
+                </Button>
+              </Then>
+              <Else>
+                <Button
+                  onClick={() => setTheme('light')}
+                  className='fixed right-4 bottom-4'>
+                  <MoonIcon className='h-5 w-5' />
+                  Dark
+                </Button>
+              </Else>
+            </If>
           </Then>
         </If>
         <Toaster />

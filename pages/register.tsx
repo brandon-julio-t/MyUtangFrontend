@@ -70,10 +70,8 @@ const Register: NextPage = () => {
             placeholder='Confirm password'
             required
           />
-          <Button
-            isLoading={loading}
-            type='submit'
-            iconName='PaperAirplaneIcon'>
+          <Button isLoading={loading} type='submit'>
+            <PaperAirplaneIcon className='h-5 w-5' />
             Register
           </Button>
         </form>

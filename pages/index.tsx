@@ -11,8 +11,8 @@ import User from '../models/User';
 import { setUser } from '../stores/app';
 import { gql, useQuery } from '@apollo/client';
 import {
-  CreditCardIcon,
   ClipboardListIcon,
+  CreditCardIcon,
   LogoutIcon,
 } from '@heroicons/react/solid';
 import type { NextPage } from 'next';
@@ -58,26 +58,23 @@ const Home: NextPage = () => {
           <Button
             styleType='danger'
             onClick={onLogout}
-            iconName='LogoutIcon'
             className='w-full mt-4 md:mt-0 md:w-fit'>
+            <LogoutIcon className='h-5 w-5' />
             Logout
           </Button>
         </header>
 
         <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-          <Button
-            onClick={() => setShowLendMoneyModal(true)}
-            iconName='CreditCardIcon'>
+          <Button onClick={() => setShowLendMoneyModal(true)}>
+            <CreditCardIcon className='h-5 w-5' />
             Lend Money
           </Button>
-          <Button
-            onClick={() => setShowDebtHistoryModal(true)}
-            iconName='ClipboardListIcon'>
+          <Button onClick={() => setShowDebtHistoryModal(true)}>
+            <ClipboardListIcon className='h-5 w-5' />
             Debt History
           </Button>
-          <Button
-            onClick={() => setShowLendingHistoryModal(true)}
-            iconName='ClipboardListIcon'>
+          <Button onClick={() => setShowLendingHistoryModal(true)}>
+            <ClipboardListIcon className='h-5 w-5' />
             Lending History
           </Button>
         </div>

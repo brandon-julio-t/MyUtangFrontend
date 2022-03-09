@@ -1,9 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
-import { Transition } from '@headlessui/react';
-import { FunctionComponent, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
 import Debt from '../../models/Debt';
 import { addDebtHistory, removeDebt } from '../../stores/index-slice';
 import Button from '../common/button';
@@ -11,7 +5,13 @@ import Card from '../common/card';
 import Modal from '../common/modal';
 import Table from '../common/table';
 import LendMoneyModal from './lend-money-modal';
-
+import { gql, useMutation } from '@apollo/client';
+import { Transition } from '@headlessui/react';
+import { CashIcon, PencilIcon } from '@heroicons/react/solid';
+import { FunctionComponent, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Else, If, Then } from 'react-if';
+import { useDispatch } from 'react-redux';
 
 const DebtsTableRow: FunctionComponent<{
   idx: number;
@@ -64,17 +64,16 @@ const DebtsTableRow: FunctionComponent<{
             <Table.Cell className='relative'>
               <If condition={isLending}>
                 <Then>
-                  <Button
-                    onClick={() => setShowUpdateModal(true)}
-                    iconName='PencilIcon'>
+                  <Button onClick={() => setShowUpdateModal(true)}>
+                    <PencilIcon className='h-5 w-5' />
                     Edit
                   </Button>
                 </Then>
                 <Else>
                   <Button
                     onClick={() => setShowConfirmationDialog(true)}
-                    isLoading={loading}
-                    iconName='CashIcon'>
+                    isLoading={loading}>
+                    <CashIcon className='h-5 w-5' />
                     Pay
                   </Button>
 

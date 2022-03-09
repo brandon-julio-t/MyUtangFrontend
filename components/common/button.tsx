@@ -1,18 +1,12 @@
-import { IconName } from '../../types/hero-icon-name';
-import LoadingIcon from './loading-icon';
-import dynamic from 'next/dynamic';
 import {
-  ButtonHTMLAttributes,
-  ComponentProps,
-  ComponentType,
-  FunctionComponent,
+  ButtonHTMLAttributes, FunctionComponent
 } from 'react';
 import { Else, If, Then } from 'react-if';
+import LoadingIcon from './loading-icon';
 
 interface Props {
   isLoading?: boolean;
   styleType?: 'primary' | 'danger';
-  iconName?: IconName;
   iconType?: 'solid' | 'outline';
 }
 
@@ -23,24 +17,11 @@ const Button: FunctionComponent<
   className,
   isLoading,
   styleType,
-  iconName,
   iconType,
   onClick,
   ...rest
 }) => {
   const isPrimary = !styleType || styleType === 'primary';
-
-  let Icon: ComponentType<ComponentProps<'svg'>> = () => <></>;
-  if (iconName) {
-    Icon =
-      iconType === 'outline'
-        ? dynamic(() =>
-            import('@heroicons/react/outline').then(mod => mod[iconName])
-          )
-        : dynamic(() =>
-            import('@heroicons/react/solid').then(mod => mod[iconName])
-          );
-  }
 
   return (
     <button
@@ -81,19 +62,12 @@ const Button: FunctionComponent<
         e.stopPropagation();
         if (onClick) onClick(e);
       }}>
-      <If condition={iconName}>
+      <If condition={isLoading}>
         <Then>
-          <If condition={isLoading}>
-            <Then>
-              <LoadingIcon className='mr-2 h-5 w-5' />
-            </Then>
-            <Else>
-              <Icon className='mr-2 h-5 w-5' />
-            </Else>
-          </If>
+          <LoadingIcon className='mr-2 h-5 w-5' />
         </Then>
+        <Else>{children}</Else>
       </If>
-      {children}
     </button>
   );
 };
