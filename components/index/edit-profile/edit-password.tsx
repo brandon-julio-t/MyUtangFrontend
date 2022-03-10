@@ -19,7 +19,6 @@ const EditPassword = () => {
     const errors = [
       oldPassword ? null : 'Old password is required.',
       newPassword ? null : 'New password is required.',
-      oldPassword === newPassword ? null : 'Passwords do not match.',
     ].filter(e => e);
 
     if (errors.length) {
