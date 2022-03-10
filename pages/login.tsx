@@ -59,7 +59,7 @@ const Login: NextPage = () => {
             required
           />
           <Button isLoading={loading} type='submit'>
-            <LoginIcon className='h-5 w-5' />
+            <LoginIcon className='mr-2 h-5 w-5' />
             Login
           </Button>
         </form>

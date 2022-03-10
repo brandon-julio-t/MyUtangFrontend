@@ -1,14 +1,14 @@
-import Card from './card';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import { Fragment, FunctionComponent } from 'react';
+import { ComponentType, Fragment } from 'react';
+import Card from './card';
 
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const Modal: FunctionComponent<ModalProps & { title: string }> = ({
+const Modal: ComponentType<ModalProps & { title: string }> = ({
   children,
   title,
   isOpen,

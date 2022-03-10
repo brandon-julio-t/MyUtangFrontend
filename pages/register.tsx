@@ -71,7 +71,7 @@ const Register: NextPage = () => {
             required
           />
           <Button isLoading={loading} type='submit'>
-            <PaperAirplaneIcon className='h-5 w-5' />
+            <PaperAirplaneIcon className='mr-2 h-5 w-5' />
             Register
           </Button>
         </form>

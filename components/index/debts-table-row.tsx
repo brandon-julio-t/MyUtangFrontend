@@ -65,7 +65,7 @@ const DebtsTableRow: FunctionComponent<{
               <If condition={isLending}>
                 <Then>
                   <Button onClick={() => setShowUpdateModal(true)}>
-                    <PencilIcon className='h-5 w-5' />
+                    <PencilIcon className='mr-2 h-5 w-5' />
                     Edit
                   </Button>
                 </Then>
@@ -73,7 +73,7 @@ const DebtsTableRow: FunctionComponent<{
                   <Button
                     onClick={() => setShowConfirmationDialog(true)}
                     isLoading={loading}>
-                    <CashIcon className='h-5 w-5' />
+                    <CashIcon className='mr-2 h-5 w-5' />
                     Pay
                   </Button>
 

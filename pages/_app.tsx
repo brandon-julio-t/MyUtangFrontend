@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Button
                   onClick={() => setTheme('dark')}
                   className='fixed right-4 bottom-4'>
-                  <SunIcon className='h-5 w-5' />
+                  <SunIcon className='mr-2 h-5 w-5' />
                   Light
                 </Button>
               </Then>
@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Button
                   onClick={() => setTheme('light')}
                   className='fixed right-4 bottom-4'>
-                  <MoonIcon className='h-5 w-5' />
+                  <MoonIcon className='mr-2 h-5 w-5' />
                   Dark
                 </Button>
               </Else>

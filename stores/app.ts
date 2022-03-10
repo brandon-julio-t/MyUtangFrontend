@@ -13,6 +13,11 @@ export const appSlice = createSlice({
     setUser: (state, action: { type: string; payload: User | null }) => {
       state.user = action.payload;
     },
+    setUsername: (state, action: { type: string; payload: string }) => {
+      const clone = state.user?.clone() ?? null;
+      if (clone) clone.userName = action.payload;
+      state.user = clone;
+    },
   },
 });
 

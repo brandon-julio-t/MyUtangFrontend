@@ -4,5 +4,9 @@ export default class User {
     public discordId: string | null = null,
     public userName: string = '',
     public password: string = ''
-  ) {}
+  ) { }
+
+  public clone(): this {
+    return Object.create(this);
+  }
 }
