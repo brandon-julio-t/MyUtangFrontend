@@ -39,7 +39,8 @@ const DebtsCard: FunctionComponent<{
               enterTo='transform translate-y-0 opacity-100'
               leave='transition'
               leaveFrom='transform translate-y-0 opacity-100'
-              leaveTo='transform -translate-y-4 opacity-0'>
+              leaveTo='transform -translate-y-4 opacity-0'
+            >
               <Disclosure.Panel className='mt-4'>
                 <DebtsTable
                   debts={debts}

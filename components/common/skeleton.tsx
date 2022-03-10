@@ -7,7 +7,8 @@ const Skeleton: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
   return (
     <div
       {...rest}
-      className={`h-6 w-full animate-pulse rounded-2xl bg-slate-200 ${className}`}></div>
+      className={`h-6 w-full animate-pulse rounded-2xl bg-slate-200 ${className}`}
+    ></div>
   );
 };
 

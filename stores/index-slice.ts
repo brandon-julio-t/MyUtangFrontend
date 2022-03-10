@@ -25,6 +25,11 @@ const { reducer, actions } = createSlice({
     addLending: (state, action: { type: string; payload: Debt }) => {
       state.lendings = [...state.lendings, action.payload];
     },
+    removeLending: (state, action: { type: string; payload: Debt }) => {
+      state.lendings = state.lendings.filter(
+        debt => debt.id !== action.payload.id
+      );
+    },
     updateLending: (state, action: { type: string; payload: Debt }) => {
       state.lendings = state.lendings.map(debt =>
         debt.id === action.payload.id ? action.payload : debt
@@ -41,6 +46,9 @@ const { reducer, actions } = createSlice({
     loadLendingHistory: (state, action: { type: string; payload: Debt[] }) => {
       state.lendingHistory = action.payload;
     },
+    addLendingHistory: (state, action: { type: string; payload: Debt }) => {
+      state.lendingHistory = [...state.lendingHistory, action.payload];
+    },
   },
 });
 
@@ -50,8 +58,10 @@ export const {
   removeDebt,
   loadLendings,
   addLending,
+  removeLending,
   updateLending,
   loadDebtHistory,
   addDebtHistory,
   loadLendingHistory,
+  addLendingHistory,
 } = actions;

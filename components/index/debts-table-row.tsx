@@ -1,17 +1,13 @@
+import { PencilIcon } from '@heroicons/react/solid';
+import { FunctionComponent, useState } from 'react';
+import { Else, If, Then } from 'react-if';
 import Debt from '../../models/Debt';
-import { addDebtHistory, removeDebt } from '../../stores/index-slice';
 import Button from '../common/button';
-import Card from '../common/card';
 import Modal from '../common/modal';
 import Table from '../common/table';
 import LendMoneyModal from './lend-money-modal';
-import { gql, useMutation } from '@apollo/client';
-import { Transition } from '@headlessui/react';
-import { CashIcon, PencilIcon } from '@heroicons/react/solid';
-import { FunctionComponent, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Else, If, Then } from 'react-if';
-import { useDispatch } from 'react-redux';
+import MarkLendingAsPaidButton from './mark-lending-as-paid-button';
+import PayDebtButton from './pay-debt-button';
 
 const DebtsTableRow: FunctionComponent<{
   idx: number;
@@ -19,41 +15,16 @@ const DebtsTableRow: FunctionComponent<{
   isViewOnly?: boolean;
   isLending: boolean;
 }> = ({ idx, debt, isViewOnly, isLending }) => {
-  const dispatch = useDispatch();
-
   const [showDetailModal, setShow] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
-
-  const [payDebt, { loading }] = useMutation<
-    { payDebt: Debt },
-    { debtId: string }
-  >(GQL);
-
-  const onPay = async () => {
-    setShowConfirmationDialog(false);
-
-    const { data } = await toast.promise(
-      payDebt({ variables: { debtId: debt.id } }),
-      {
-        loading: 'Paying debt...',
-        success: 'Debt payment success.',
-        error: 'Debt payment failed. Please try again.',
-      }
-    );
-
-    if (data?.payDebt) {
-      dispatch(removeDebt(data.payDebt));
-      dispatch(addDebtHistory(data.payDebt));
-    }
-  };
 
   return (
     <>
       <Table.Row
         idx={idx}
         onClick={() => setShow(true)}
-        className='cursor-pointer'>
+        className='cursor-pointer'
+      >
         <Table.Cell className='whitespace-nowrap'>{debt.title}</Table.Cell>
         <Table.Cell>{Number(debt.amount).toLocaleString()}</Table.Cell>
         <Table.Cell>
@@ -61,48 +32,17 @@ const DebtsTableRow: FunctionComponent<{
         </Table.Cell>
         <If condition={!isViewOnly}>
           <Then>
-            <Table.Cell className='relative'>
+            <Table.Cell className='relative flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4'>
               <If condition={isLending}>
                 <Then>
                   <Button onClick={() => setShowUpdateModal(true)}>
                     <PencilIcon className='mr-2 h-5 w-5' />
                     Edit
                   </Button>
+                  <MarkLendingAsPaidButton debt={debt} />
                 </Then>
                 <Else>
-                  <Button
-                    onClick={() => setShowConfirmationDialog(true)}
-                    isLoading={loading}>
-                    <CashIcon className='mr-2 h-5 w-5' />
-                    Pay
-                  </Button>
-
-                  <Transition
-                    className='absolute bottom-0 right-0 z-10 md:right-20'
-                    show={showConfirmationDialog}
-                    enter='transition'
-                    enterFrom='opacity-0 scale-95'
-                    enterTo='opacity-100 scale-100'
-                    leave='transition'
-                    leaveFrom='opacity-100 scale-100'
-                    leaveTo='opacity-0 scale-95'>
-                    <Card>
-                      <p className='mb-2 whitespace-nowrap'>
-                        Are you sure you have paid your debt?
-                      </p>
-                      <div className='flex w-full justify-end space-x-2'>
-                        <Button
-                          isLoading={loading}
-                          styleType='danger'
-                          onClick={() => setShowConfirmationDialog(false)}>
-                          No
-                        </Button>
-                        <Button isLoading={loading} onClick={onPay}>
-                          Yes
-                        </Button>
-                      </div>
-                    </Card>
-                  </Transition>
+                  <PayDebtButton debt={debt} />
                 </Else>
               </If>
             </Table.Cell>
@@ -113,7 +53,8 @@ const DebtsTableRow: FunctionComponent<{
       <Modal
         isOpen={showDetailModal}
         title={debt.title}
-        onClose={() => setShow(false)}>
+        onClose={() => setShow(false)}
+      >
         <p className='whitespace-pre-wrap break-words'>{debt.description}</p>
       </Modal>
 
@@ -125,22 +66,5 @@ const DebtsTableRow: FunctionComponent<{
     </>
   );
 };
-
-const GQL = gql`
-  mutation PayDebt($debtId: ID!) {
-    payDebt(debtId: $debtId) {
-      id
-      title
-      description
-      debtor {
-        userName
-      }
-      lender {
-        userName
-      }
-      amount
-    }
-  }
-`;
 
 export default DebtsTableRow;

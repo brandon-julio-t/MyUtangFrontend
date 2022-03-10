@@ -36,16 +36,15 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
     e.preventDefault();
 
     const errors = [
-      debtorId ? null : 'Please select a debtor.',
-      title ? null : 'Title must be filled.',
-      description ? null : 'Description must be filled.',
-      amount >= 1000
-        ? null
-        : `Amount must be at least ${Number(1000).toLocaleString()}.`,
-    ].filter(e => e);
+      !debtorId && 'Please select a debtor.',
+      !title && 'Title must be filled.',
+      !description && 'Description must be filled.',
+      amount < 1000 &&
+        `Amount must be at least ${Number(1000).toLocaleString()}.`,
+    ].filter(it => it);
 
     if (errors.length) {
-      errors.forEach(err => toast.error(err));
+      errors.forEach(err => toast.error(err.toString()));
       return;
     }
 
