@@ -4,6 +4,7 @@ import Button from '../common/button';
 import Card from '../common/card';
 import { gql, useMutation } from '@apollo/client';
 import { Transition } from '@headlessui/react';
+import { CashIcon } from '@heroicons/react/solid';
 import React, { FunctionComponent, HTMLAttributes, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
@@ -40,12 +41,8 @@ const MarkLendingAsPaidButton: FunctionComponent<
 
   return (
     <>
-      <Button
-        {...rest}
-        onClick={() => setShow(true)}
-        isLoading={loading}
-        iconName='CashIcon'
-      >
+      <Button {...rest} onClick={() => setShow(true)} isLoading={loading}>
+        <CashIcon className='mr-2 h-5 w-5' />
         Mark as Paid
       </Button>
 
