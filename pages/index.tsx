@@ -58,7 +58,8 @@ const Home: NextPage = () => {
                 <span className='font-bold mr-4'>{user?.userName}</span>
                 <Button
                   className='text-base'
-                  onClick={() => setShowEditProfileModal(true)}>
+                  onClick={() => setShowEditProfileModal(true)}
+                >
                   <PencilIcon className='mr-2 h-5 w-5' />
                   Edit Profile
                 </Button>
@@ -68,7 +69,8 @@ const Home: NextPage = () => {
           <Button
             styleType='danger'
             onClick={onLogout}
-            className='w-full mt-4 md:mt-0 md:w-fit'>
+            className='w-full mt-4 md:mt-0 md:w-fit'
+          >
             <LogoutIcon className='mr-2 h-5 w-5' />
             Logout
           </Button>
