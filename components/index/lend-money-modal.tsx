@@ -90,8 +90,6 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
     }
   };
 
-  console.log({ createDebtLoading, updateDebtLoading });
-
   return (
     <Modal title='Lend Money' isOpen={isOpen} onClose={onClose}>
       <form onSubmit={onSubmit} className='grid grid-cols-1 gap-4'>

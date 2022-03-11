@@ -20,7 +20,7 @@ const Button: FunctionComponent<
   ...rest
 }) => {
   const isPrimary = !styleType || styleType === 'primary';
-  console.log({ isLoading });
+
   return (
     <button
       {...rest}
