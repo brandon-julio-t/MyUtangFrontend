@@ -64,7 +64,7 @@ const Button: FunctionComponent<
       }}>
       <If condition={isLoading}>
         <Then>
-          <LoadingIcon className='mr-2 h-5 w-5' />
+          <LoadingIcon className='h-5 w-5' />
         </Then>
         <Else>{children}</Else>
       </If>
