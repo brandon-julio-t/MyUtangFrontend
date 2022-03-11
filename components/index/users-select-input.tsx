@@ -17,7 +17,7 @@ const UsersSelectInput: FunctionComponent<{
   );
   const people = data?.users ?? [];
 
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState<User | null>(null);
   const [query, setQuery] = useState('');
 
   const filteredPeople =
@@ -33,20 +33,18 @@ const UsersSelectInput: FunctionComponent<{
         );
 
   useEffect(() => {
-    if (data?.users) {
-      setSelected(data?.users[0]);
-    }
-  }, [data?.users]);
-
-  useEffect(() => {
-    onUserChange(selected?.id);
+    if (selected) onUserChange(selected.id);
   }, [selected]);
 
   useEffect(() => {
-    if (!userId && data?.users.length) {
-      onUserChange(data.users[0].id);
+    if (!selected && data?.users.length) {
+      const user = userId
+        ? data.users.filter(user => user.id === userId)[0]
+        : data.users[0];
+      setSelected(user);
+      onUserChange(user.id);
     }
-  }, [data?.users, onUserChange, userId]);
+  }, [data?.users, onUserChange, selected, userId]);
 
   return (
     <Combobox
@@ -59,9 +57,9 @@ const UsersSelectInput: FunctionComponent<{
         <div className='relative w-full text-left cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-teal-300 focus-visible:ring-offset-2 sm:text-sm overflow-hidden'>
           <Combobox.Input
             className='w-full border border-slate-300 focus:border-slate-400 rounded-lg dark:caret-zinc-400 dark:placeholder-zinc-400 dark:text-white dark:border-zinc-700 focus:ring-0 py-2 pl-3 pr-10 leading-5 text-gray-900 bg-white dark:bg-zinc-800'
-            displayValue={(person: User) => person.userName}
+            displayValue={(person: User) => person?.userName ?? 'Loading...'}
             onChange={event => setQuery(event.target.value)}
-            defaultValue='Loading...'
+            disabled={!userId}
           />
           <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
             <SelectorIcon

@@ -19,12 +19,23 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
 
   const [createDebt, { loading: createDebtLoading }] = useMutation<
     { createDebt: Debt },
-    { title: string; description: string; debtorId: string; amount: number }
+    {
+      title: string;
+      description: string;
+      debtorId: string;
+      amount: number;
+    }
   >(CREATE_GQL);
 
   const [updateDebt, { loading: updateDebtLoading }] = useMutation<
     { updateDebt: Debt },
-    { debtId: string; title: string; description: string; amount: number }
+    {
+      debtId: string;
+      debtorId: string;
+      title: string;
+      description: string;
+      amount: number;
+    }
   >(UPDATE_GQL);
 
   const [debtorId, setdebtorId] = useState(debt?.debtor?.id ?? '');
@@ -51,7 +62,7 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
     if (debt) {
       const { data } = await toast.promise(
         updateDebt({
-          variables: { debtId: debt.id, amount, description, title },
+          variables: { debtId: debt.id, debtorId, amount, description, title },
         }),
         {
           loading: 'Updating debt...',
@@ -78,6 +89,8 @@ const LendMoneyModal: FunctionComponent<ModalProps & { debt?: Debt }> = ({
       }
     }
   };
+
+  console.log({ createDebtLoading, updateDebtLoading });
 
   return (
     <Modal title='Lend Money' isOpen={isOpen} onClose={onClose}>
@@ -150,12 +163,14 @@ const CREATE_GQL = gql`
 const UPDATE_GQL = gql`
   mutation UpdateDebt(
     $debtId: ID!
+    $debtorId: ID!
     $title: String!
     $description: String!
     $amount: Int!
   ) {
     updateDebt(
       debtId: $debtId
+      debtorId: $debtorId
       title: $title
       description: $description
       amount: $amount

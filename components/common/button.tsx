@@ -1,8 +1,6 @@
-import {
-  ButtonHTMLAttributes, FunctionComponent
-} from 'react';
-import { Else, If, Then } from 'react-if';
 import LoadingIcon from './loading-icon';
+import { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import { Else, If, Then } from 'react-if';
 
 interface Props {
   isLoading?: boolean;
@@ -22,7 +20,7 @@ const Button: FunctionComponent<
   ...rest
 }) => {
   const isPrimary = !styleType || styleType === 'primary';
-
+  console.log({ isLoading });
   return (
     <button
       {...rest}
@@ -61,7 +59,8 @@ const Button: FunctionComponent<
       onClick={e => {
         e.stopPropagation();
         if (onClick) onClick(e);
-      }}>
+      }}
+    >
       <If condition={isLoading}>
         <Then>
           <LoadingIcon className='h-5 w-5' />
